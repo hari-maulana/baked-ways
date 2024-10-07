@@ -16,9 +16,10 @@ enum Role {
 // User model
 model User {
   id        Int          @id @default(autoincrement())
-  name      String
+  fullname  String
   email     String       @unique
   password  String
+  gender    String
   role      Role         @default(USER)
   profile   UserProfile?
   cart      Cart?
@@ -29,7 +30,7 @@ model User {
 
 model Admin {
   id        Int             @id @default(autoincrement())
-  name      String
+  fullname  String
   email     String          @unique
   password  String
   role      Role            @default(ADMIN)
@@ -50,7 +51,7 @@ model UserProfile {
 // BakeryProfile model for bakery-specific details
 model BakeryProfile {
   id          Int       @id @default(autoincrement())
-  name        String
+  bakeryName  String
   description String?
   address     String
   location    Json // Store map data (latitude, longitude, etc.)
@@ -64,7 +65,7 @@ model BakeryProfile {
 // Product model representing bakery items (pastry, bread, etc.)
 model Product {
   id          Int           @id @default(autoincrement())
-  name        String
+  productName String
   description String?
   price       Float
   bakeryId    Int
