@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // uses connection pooling
+  //directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+// User model
+model User {
+  id        Int          @id @default(autoincrement())
+  name      String
+  email     String       @unique
+  password  String
+  role      Role         @default(USER)
+  profile   UserProfile?
+  cart      Cart?
+  orders    Order[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Admin {
+  id        Int             @id @default(autoincrement())
+  name      String
+  email     String          @unique
+  password  String
+  role      Role            @default(ADMIN)
+  bakeries  BakeryProfile[] // Admin can manage multiple bakeries
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+// UserProfile model for user-specific details
+model UserProfile {
+  id      Int    @id @default(autoincrement())
+  address String
+  phone   String
+  userId  Int    @unique
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+// BakeryProfile model for bakery-specific details
+model BakeryProfile {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  address     String
+  location    Json // Store map data (latitude, longitude, etc.)
+  adminId     Int
+  admin       Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade) // When admin is deleted, related bakeries are also deleted
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// Product model representing bakery items (pastry, bread, etc.)
+model Product {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  bakeryId    Int
+  bakery      BakeryProfile @relation(fields: [bakeryId], references: [id], onDelete: Cascade) // Delete products when bakery is deleted
+  cartItems   CartItem[]
+  orders      OrderItem[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// Cart model for storing products added by the user
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int        @unique
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+// CartItem model represents each product added to the cart
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  cartId    Int
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Order model representing an order placed by the user
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  user        User        @relation(fields: [userId], references: [id])
+  items       OrderItem[]
+  totalAmount Float
+  status      String // e.g., "pending", "shipped", "delivered"
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  Transaction Transaction[]
+}
+
+// OrderItem model representing each product in an order
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Transaction model for tracking payments and other transaction details
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  orderId     Int      @unique
+  order       Order    @relation(fields: [orderId], references: [id])
+  paymentType String // e.g., "credit_card", "cash"
+  status      String // e.g., "completed", "pending"
+  totalAmount Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
