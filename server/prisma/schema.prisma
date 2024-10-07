@@ -42,11 +42,11 @@ model Admin {
 
 // UserProfile model for user-specific details
 model UserProfile {
-  id      Int    @id @default(autoincrement())
-  address String
-  phone   String
-  userId  Int    @unique
-  user    User   @relation(fields: [userId], references: [id])
+  id          Int     @id @default(autoincrement())
+  address     String?
+  profilePict String?
+  userId      Int     @unique
+  user        User    @relation(fields: [userId], references: [id])
 }
 
 // BakeryProfile model for bakery-specific details
