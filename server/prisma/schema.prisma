@@ -20,6 +20,7 @@ model User {
   email     String       @unique
   password  String
   gender    String
+  phone     String
   role      Role         @default(USER)
   profile   UserProfile?
   cart      Cart?
