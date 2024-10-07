@@ -8,15 +8,15 @@ import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { loginRoute, registerRoute } from "./src/routes/authRoutes";
 
 const prisma = new PrismaClient();
 const app = express();
 dotenv.config();
 
-// Middleware utk parse JSON
-
-
 app.use(cors());
+// Middleware utk parse JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -65,24 +65,57 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
 */
 
-app.post("/register", async (req, res) => {
+// ROUTES
+app.use("/auth", registerRoute);
+app.use("/auth", loginRoute);
+
+app.get("/users", async (req, res) => {
   try {
-    const { email, password, fullname, gender, phone } = req.body;
+    const users = await prisma.user.findMany();
 
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: passwordHash,
-        fullname,
-        gender,
-        phone,
+app.get("/profile/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const profile = await prisma.userProfile.findUnique({
+      where: { userId: parseInt(userId) },
+      include: {
+        user: true,
       },
     });
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+    res.status(200).json(profile);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-    res.status(201).json(user);
+app.put("/profile/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const { profilePict, address, fullname } = req.body;
+    const profile = await prisma.userProfile.update({
+      where: { userId: parseInt(userId) },
+      data: {
+        address,
+        profilePict,
+        user: {
+          update: {
+            fullname,
+          },
+        },
+      },
+    });
+    res.status(200).json(profile);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -92,17 +125,7 @@ app.post("/register", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Backend is workinggg!");
 });
-
-app.post("/login", async (req, res) => {
-  try {
-    
-  } catch (error) {
-    
-  }
-})
-
 const port = 3000;
-
 app.listen(port, () => {
   console.log(`Server berjalan di port ${port}`);
 });
