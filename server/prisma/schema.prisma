@@ -13,127 +13,132 @@ enum Role {
   USER
 }
 
-// User model
+enum Gender {
+  MALE
+  FEMALE
+}
+
+// User Model with Roles
 model User {
   id        Int          @id @default(autoincrement())
-  fullname  String
   email     String       @unique
   password  String
-  gender    String
-  phone     String
-  role      Role         @default(USER)
+  fullName  String
+  Phone     Role
+  gender    Gender?
+  role      Role         @default(USER) // Role field to determine user type
   profile   UserProfile?
+  bakery    Bakery? // Only for Admins
   cart      Cart?
   orders    Order[]
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
 }
 
-model Admin {
-  id        Int             @id @default(autoincrement())
-  fullname  String
-  email     String          @unique
-  password  String
-  role      Role            @default(ADMIN)
-  bakeries  BakeryProfile[] // Admin can manage multiple bakeries
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
-}
-
-// UserProfile model for user-specific details
+// UserProfile Model for users
 model UserProfile {
   id          Int     @id @default(autoincrement())
+  userId      Int     @unique
   address     String?
   profilePict String?
-  userId      Int     @unique
   user        User    @relation(fields: [userId], references: [id])
 }
 
-// BakeryProfile model for bakery-specific details
-model BakeryProfile {
-  id          Int       @id @default(autoincrement())
-  bakeryName  String
-  description String?
-  address     String
-  location    Json // Store map data (latitude, longitude, etc.)
-  adminId     Int
-  admin       Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade) // When admin is deleted, related bakeries are also deleted
-  products    Product[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+// Bakery Model (Managed by Admin users)
+model Bakery {
+  id           Int           @id @default(autoincrement())
+  name         String
+  description  String?
+  address      String
+  location     Json // Store map information as JSON (e.g., coordinates)
+  products     Product[]
+  adminId      Int           @unique
+  admin        User          @relation(fields: [adminId], references: [id]) // Admin is a User with role 'ADMIN'
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  Order Order[]
 }
 
-// Product model representing bakery items (pastry, bread, etc.)
+// Product Model
 model Product {
-  id          Int           @id @default(autoincrement())
-  productName String
+  id          Int            @id @default(autoincrement())
+  name        String
   description String?
   price       Float
   bakeryId    Int
-  bakery      BakeryProfile @relation(fields: [bakeryId], references: [id], onDelete: Cascade) // Delete products when bakery is deleted
-  cartItems   CartItem[]
-  orders      OrderItem[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  bakery      Bakery         @relation(fields: [bakeryId], references: [id])
+  carts       CartProduct[]
+  orders      OrderProduct[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }
 
-// Cart model for storing products added by the user
+// Cart Model (for Users)
 model Cart {
-  id        Int        @id @default(autoincrement())
-  userId    Int        @unique
-  user      User       @relation(fields: [userId], references: [id])
-  items     CartItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        Int           @id @default(autoincrement())
+  userId    Int           @unique
+  products  CartProduct[]
+  user      User          @relation(fields: [userId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
-// CartItem model represents each product added to the cart
-model CartItem {
-  id        Int      @id @default(autoincrement())
+// Pivot table for Cart and Products (many-to-many)
+model CartProduct {
+  id        Int     @id @default(autoincrement())
   cartId    Int
-  cart      Cart     @relation(fields: [cartId], references: [id])
   productId Int
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  quantity  Int     @default(1)
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
-// Order model representing an order placed by the user
+// Order Model
 model Order {
-  id          Int         @id @default(autoincrement())
-  userId      Int
-  user        User        @relation(fields: [userId], references: [id])
-  items       OrderItem[]
-  totalAmount Float
-  status      String // e.g., "pending", "shipped", "delivered"
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id         Int            @id @default(autoincrement())
+  userId     Int
+  bakeryId   Int
+  totalPrice Float
+  status     OrderStatus    @default(PENDING)
+  products   OrderProduct[]
+  user       User           @relation(fields: [userId], references: [id])
+  bakery     Bakery         @relation(fields: [bakeryId], references: [id])
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
 
   Transaction Transaction[]
 }
 
-// OrderItem model representing each product in an order
-model OrderItem {
-  id        Int      @id @default(autoincrement())
+// Pivot table for Order and Products (many-to-many)
+model OrderProduct {
+  id        Int     @id @default(autoincrement())
   orderId   Int
-  order     Order    @relation(fields: [orderId], references: [id])
   productId Int
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  quantity  Int     @default(1)
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
-// Transaction model for tracking payments and other transaction details
+// Transaction Model for bakery admins
 model Transaction {
   id          Int      @id @default(autoincrement())
-  orderId     Int      @unique
-  order       Order    @relation(fields: [orderId], references: [id])
-  paymentType String // e.g., "credit_card", "cash"
-  status      String // e.g., "completed", "pending"
+  bakeryId    Int
+  orderId     Int
   totalAmount Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  bakery      Bakery   @relation(fields: [bakeryId], references: [id])
+  order       Order    @relation(fields: [orderId], references: [id])
+}
+
+// Enums
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  DELIVERING
+  COMPLETED
+  CANCELED
 }
