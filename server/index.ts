@@ -4,11 +4,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 //import path from 'path';
 //import multer, { diskStorage } from 'multer';
-import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "cloudinary";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { loginRoute, registerRoute } from "./src/routes/authRoutes";
 
 const prisma = new PrismaClient();
@@ -102,7 +97,7 @@ app.get("/profile/:userId", async (req, res) => {
 app.put("/profile/:userId", async (req, res) => {
   const userId = req.params.userId;
   try {
-    const { profilePict, address, fullname } = req.body;
+    const { profilePict, address, fullName } = req.body;
     const profile = await prisma.userProfile.update({
       where: { userId: parseInt(userId) },
       data: {
@@ -110,7 +105,7 @@ app.put("/profile/:userId", async (req, res) => {
         profilePict,
         user: {
           update: {
-            fullname,
+            fullName,
           },
         },
       },
@@ -125,6 +120,7 @@ app.put("/profile/:userId", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Backend is workinggg!");
 });
+12;
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server berjalan di port ${port}`);
