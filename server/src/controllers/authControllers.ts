@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 const register = async (req: express.Request, res: express.Response) => {
   try {
-    const { email, password, fullname, gender, phone } = req.body;
+    const { email, password, fullName, gender, phone } = req.body;
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -16,9 +16,15 @@ const register = async (req: express.Request, res: express.Response) => {
       data: {
         email,
         password: passwordHash,
-        fullname,
+        fullName,
         gender,
         phone,
+        profile: {
+          create: {
+            address: "",
+            profilePict: "",
+          },
+        },
       },
     });
 

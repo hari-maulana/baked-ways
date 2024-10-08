@@ -5,6 +5,11 @@ import cors from "cors";
 //import path from 'path';
 //import multer, { diskStorage } from 'multer';
 import { loginRoute, registerRoute } from "./src/routes/authRoutes";
+// import { getUserProfile } from "./src/controllers/userControllers";
+import {
+  getUserProfileRoute,
+  updateUserProfileRoute,
+} from "./src/routes/userRoutes";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -64,7 +69,10 @@ app.post('/upload', upload.single('image'), (req, res) => {
 app.use("/auth", registerRoute);
 app.use("/auth", loginRoute);
 
-app.get("/users", async (req, res) => {
+app.use("/user", updateUserProfileRoute);
+app.use("/user", getUserProfileRoute);
+
+const getUserProfile = app.get("/users", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
 
@@ -75,53 +83,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-app.get("/profile/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  try {
-    const profile = await prisma.userProfile.findUnique({
-      where: { userId: parseInt(userId) },
-      include: {
-        user: true,
-      },
-    });
-    if (!profile) {
-      return res.status(404).json({ message: "Profile not found" });
-    }
-    res.status(200).json(profile);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.put("/profile/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  try {
-    const { profilePict, address, fullName } = req.body;
-    const profile = await prisma.userProfile.update({
-      where: { userId: parseInt(userId) },
-      data: {
-        address,
-        profilePict,
-        user: {
-          update: {
-            fullName,
-          },
-        },
-      },
-    });
-    res.status(200).json(profile);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-app.get("/", (req, res) => {
-  res.send("Backend is workinggg!");
-});
-12;
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Server berjalan di port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server listening on port ${process.env.PORT}`);
 });
