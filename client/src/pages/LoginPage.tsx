@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FormInput } from "../components/commons/FormInput";
+import { Form } from "react-router-dom";
 
 export const LoginPage = () => {
   const [currState, setCurrState] = useState("Login");
@@ -22,28 +24,16 @@ export const LoginPage = () => {
         className="bg-white py-2 px-4 flex flex-col gap-4 rounded-md w-[300px] text-black dark:bg-gray-900 dark:text-white"
       >
         <p className="font-bold text-xl">{currState}</p>
+        <FormInput type="email" placeholder="Email" required />
+        <FormInput type="password" placeholder="Password" required />
         {currState === "Sign up" && (
-          <input
-            type="text"
-            placeholder="username"
-            className="py-1 px-2 rounded-sm border border-gray-400 focus:border-gray-700 focus:outline-none"
-            required
-          />
+          <>
+            <FormInput type="name" placeholder="Full Name" required />
+            <FormInput type="text" placeholder="Gender" required />
+            <FormInput type="phone" placeholder="Phone Number" required />
+            <FormInput type="text" placeholder="As User" required />
+          </>
         )}
-        <input
-          type="email"
-          placeholder="email"
-          className="py-1 px-2 rounded-sm border border-gray-400 focus:border-gray-700 focus:outline-none"
-          required
-        />
-
-        <input
-          type="password"
-          placeholder="password"
-          className="py-1 px-2 rounded-sm border border-gray-400 focus:border-gray-700 focus:outline-none"
-          required
-        />
-
         {currState === "Sign up" ? (
           <button
             type="submit"

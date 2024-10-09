@@ -3,6 +3,7 @@ import AuthLayout from "../layout/AuthLayout";
 import LandingPage from "../pages/LandingPages";
 import { LoginPage } from "../pages/LoginPage";
 import RootLayout from "../layout/RootLayout";
+import MenuPage from "../pages/user/MenuPage";
 
 const routes: RouteObject[] = [
   {
@@ -12,6 +13,10 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: <LandingPage />,
+      },
+      {
+        path: "/menu",
+        element: <MenuPage />,
       },
     ],
   },
