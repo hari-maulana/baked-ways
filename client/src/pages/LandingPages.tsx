@@ -44,10 +44,25 @@ export default function LandingPage() {
           <div id="popular" className="mb-10 mt-10">
             <p className="text-3xl mb-3">Popular bakeries</p>
             <div id="container" className="flex gap-4">
-              <BakeryLogo source="https://clairmontcake.co.id/wp-content/uploads/2021/08/logo-header.png" />
-              <BakeryLogo source="https://clairmontcake.co.id/wp-content/uploads/2021/08/logo-header.png" />
-              <BakeryLogo source="https://clairmontcake.co.id/wp-content/uploads/2021/08/logo-header.png" />
-              <BakeryLogo source="https://clairmontcake.co.id/wp-content/uploads/2021/08/logo-header.png" />
+              <BakeryLogo
+                bakeryName="Mako Bakery"
+                source="https://www.makobakery.com/assets/img/contact/logo-mako-contact-page.png"
+              />
+
+              <BakeryLogo
+                bakeryName="Holland Bakery"
+                source="https://ugc.production.linktr.ee/Javo8j1YT9aCl0iuxl9m_J1hxK2BEZlh2XrUp?io=true&size=avatar-v3_0"
+              />
+
+              <BakeryLogo
+                bakeryName="The Harvest"
+                source="https://scontent.fcgk6-3.fna.fbcdn.net/v/t39.30808-6/437751945_967816161371514_1122795877301980660_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFwdWMeIo4guEqOoG3Be4yp1FAtkdqe4THUUC2R2p7hMbe2K0YJCmMMj5Dt_jLpi8-OFHbfhEJyMwSEnBkHhi6N&_nc_ohc=SgZl9U0vY3EQ7kNvgEJRpwN&_nc_ht=scontent.fcgk6-3.fna&_nc_gid=AxBItJCcUF1q75ftWkhdF2z&oh=00_AYCx6ifClscgX613Er9NAWD_7yaP9a7p8EAv12QCR5VfLQ&oe=670C0059"
+              />
+
+              <BakeryLogo
+                bakeryName="Roti O"
+                source="https://res.cloudinary.com/circlehmhm/image/upload/v1728459306/roti_o_pi4g3z.jpg"
+              />
             </div>
           </div>
           <div id="near mb-10">
