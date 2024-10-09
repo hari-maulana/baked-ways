@@ -5,7 +5,6 @@ export default function LandingPage() {
   //   const [darkMode, setDarkMode] = useState(() => {
   //     return localStorage.getItem("theme") === "dark";
   //   });
-
   //   useEffect(() => {
   //     if (darkMode) {
   //       document.documentElement.classList.add("dark");
