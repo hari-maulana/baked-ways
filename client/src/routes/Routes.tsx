@@ -1,7 +1,8 @@
 import { RouteObject } from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
-import RootLayout from "../layout/rootLAyout";
 import LandingPage from "../pages/LandingPages";
+import { LoginPage } from "../pages/LoginPage";
+import RootLayout from "../layout/RootLayout";
 
 const routes: RouteObject[] = [
   {
@@ -18,6 +19,12 @@ const routes: RouteObject[] = [
   {
     path: "/auth",
     element: <AuthLayout />,
+    children: [
+      {
+        index: true,
+        element: <LoginPage />,
+      },
+    ],
 
     // children: [
     //     {
