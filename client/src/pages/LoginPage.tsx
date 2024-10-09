@@ -1,5 +1,5 @@
 import { FormInput } from "../components/commons/FormInput";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -25,11 +25,11 @@ export const LoginPage = () => {
     phone: "",
   });
 
-  const { mutate, status, isError, isSuccess, error } = useMutation({
+  const { mutate /*status,isError, isSuccess, error*/ } = useMutation({
     mutationFn: registerUser,
   });
 
-  const isLoading = (status as "loading" | "pending" | "idle") === "loading";
+  //const isLoading = (status as "loading" | "pending" | "idle") === "loading";
 
   // Handle form submission
   const handleSubmit = (event: any) => {
