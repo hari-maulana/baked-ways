@@ -4,6 +4,7 @@ import LandingPage from "../pages/LandingPages";
 import { LoginPage } from "../pages/LoginPage";
 import RootLayout from "../layout/RootLayout";
 import MenuPage from "../pages/user/MenuPage";
+import { CartPage } from "../pages/user/CartPage";
 
 const routes: RouteObject[] = [
   {
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
       {
         path: "/menu",
         element: <MenuPage />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
       },
     ],
   },
