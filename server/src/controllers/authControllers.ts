@@ -23,6 +23,7 @@ const register = async (req: express.Request, res: express.Response) => {
           create: {
             address: "",
             profilePict: "",
+            location: {},
           },
         },
       },
@@ -56,7 +57,10 @@ const login = async (req: express.Request, res: express.Response) => {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "1h",
     });
-    res.status(200).json([user, token]);
+    const userEmail = user.email;
+    const userId = user.id;
+
+    res.status(200).json({ userId, userEmail, token: token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
