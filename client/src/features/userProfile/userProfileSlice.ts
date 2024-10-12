@@ -1,21 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// {
-//     "id": 9,
-//     "userId": 12,
-//     "address": "",
-//     "location": {},
-//     "profilePict": "",
-//     "user": {
-//       "email": "indah@gmail.com",
-//       "fullName": "indah",
-//       "gender": "FEMALE",
-//       "phone": "12345678900",
-//       "role": "USER",
-//       "cart": null,
-//       "orders": []
-//     }
-//   }
 interface UserProfileState {
   id: number;
   userId: number;
