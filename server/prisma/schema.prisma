@@ -40,6 +40,7 @@ model UserProfile {
   id          Int     @id @default(autoincrement())
   userId      Int     @unique
   address     String?
+  location    Json?
   profilePict String?
   user        User    @relation(fields: [userId], references: [id])
 }
