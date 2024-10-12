@@ -26,7 +26,7 @@ model User {
   fullName  String
   phone     String
   gender    Gender?
-  role      Role         @default(USER) // Role field to determine user type
+  role      Role
   profile   UserProfile?
   bakery    Bakery? // Only for Admins
   cart      Cart?

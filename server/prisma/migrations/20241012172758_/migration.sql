@@ -15,7 +15,7 @@ CREATE TABLE "User" (
     "fullName" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "gender" "Gender",
-    "role" "Role" NOT NULL DEFAULT 'USER',
+    "role" "Role" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -27,6 +27,7 @@ CREATE TABLE "UserProfile" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "address" TEXT,
+    "location" JSONB,
     "profilePict" TEXT,
 
     CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("id")
