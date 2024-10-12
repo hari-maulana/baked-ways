@@ -6,6 +6,7 @@ interface FormInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   name: string;
+  autoComplete?: string; // Added autoComplete prop
 }
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -16,19 +17,19 @@ export const FormInput: React.FC<FormInputProps> = ({
   id,
   name,
   value,
+  autoComplete, // Destructure the autoComplete prop
 }) => {
   return (
-    <>
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="py-1 px-2 rounded-sm border border-gray-400 focus:border-gray-700 focus:outline-none"
-        required={required}
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-    </>
+    <input
+      type={type}
+      placeholder={placeholder}
+      className="py-1 px-2 rounded-sm border border-gray-400 focus:border-gray-700 focus:outline-none"
+      required={required}
+      id={id}
+      name={name}
+      value={value}
+      onChange={onChange}
+      autoComplete={autoComplete} // Pass the autoComplete prop to the input
+    />
   );
 };
