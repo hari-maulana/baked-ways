@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Dropdown } from "./DropdownMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authentication/authSlice";
 import { RootState } from "../../store";
+import { Dropdown } from "../commons/DropdownMenu";
 
-export const Navigation: React.FC = () => {
+export const AdmNavbar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,16 +44,10 @@ export const Navigation: React.FC = () => {
           ) : (
             <>
               <button
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/auth")}
                 className="bg-gray-800 px-4 py-2 hover:bg-gray-900 rounded-lg"
               >
-                <p className="text-white text-sm font-bold">LOGIN</p>
-              </button>
-              <button
-                onClick={() => navigate("/register")}
-                className="bg-gray-800 px-4 py-2 hover:bg-gray-900 rounded-lg"
-              >
-                <p className="text-white text-sm font-bold">SIGN UP</p>
+                <p className="text-white text-sm font-bold">LOGIN / SIGN UP</p>
               </button>
             </>
           )}
