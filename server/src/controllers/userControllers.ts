@@ -10,7 +10,17 @@ const getUserProfile = async (req: express.Request, res: express.Response) => {
     const profile = await prisma.userProfile.findUnique({
       where: { userId: parseInt(userId) },
       include: {
-        user: true,
+        user: {
+          select: {
+            email: true,
+            fullName: true,
+            gender: true,
+            phone: true,
+            role: true,
+            cart: true,
+            orders: true,
+          },
+        },
       },
     });
     if (!profile) {
@@ -49,7 +59,5 @@ const updateUserProfile = async (
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
 
 export { updateUserProfile, getUserProfile };
