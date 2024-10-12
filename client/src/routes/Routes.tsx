@@ -1,19 +1,29 @@
 import { RouteObject } from "react-router-dom";
-import AuthLayout from "../layout/AuthLayout";
 import LandingPage from "../pages/LandingPages";
 import { LoginPage } from "../pages/LoginPage";
 import RootLayout from "../layout/RootLayout";
 import MenuPage from "../pages/user/MenuPage";
 import { CartPage } from "../pages/user/CartPage";
+import HomePage from "../pages/user/HomePage";
+import { AdminLayout } from "../layout/AdminLayout";
+import { RegisterPage } from "../pages/RegisterPage";
 
 const routes: RouteObject[] = [
+  {
+    path: "/landing-page",
+    element: <LandingPage />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+  },
   {
     path: "/",
     element: <RootLayout />,
     children: [
       {
         index: true,
-        element: <LandingPage />,
+        element: <HomePage />,
       },
       {
         path: "/menu",
@@ -27,14 +37,13 @@ const routes: RouteObject[] = [
   },
 
   {
-    path: "/auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        index: true,
-        element: <LoginPage />,
-      },
-    ],
+    path: "/register",
+    element: <RegisterPage />,
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
 
     // children: [
     //     {

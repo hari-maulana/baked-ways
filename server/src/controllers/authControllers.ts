@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 const register = async (req: express.Request, res: express.Response) => {
   try {
-    const { email, password, fullName, gender, phone } = req.body;
+    const { email, password, fullName, gender, phone, role } = req.body;
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -19,6 +19,7 @@ const register = async (req: express.Request, res: express.Response) => {
         fullName,
         gender,
         phone,
+        role,
         profile: {
           create: {
             address: "",
@@ -57,10 +58,10 @@ const login = async (req: express.Request, res: express.Response) => {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "1h",
     });
-    const userEmail = user.email;
+    const role = user.role;
     const userId = user.id;
 
-    res.status(200).json({ userId, userEmail, token: token });
+    res.status(200).json({ userId, role, token: token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

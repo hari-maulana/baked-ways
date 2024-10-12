@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 
 const app = express();
 
-const getUserProfileRoute = app.get("/:userId", verifyToken, getUserProfile);
+const getUserProfileRoute = app.get("/:userId", getUserProfile);
 
 const updateUserProfileRoute = app.put("/:userId", updateUserProfile);
 
