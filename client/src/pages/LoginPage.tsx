@@ -2,16 +2,26 @@ import { FormInput } from "../components/commons/FormInput";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const registerUser = async (userData: any) => {
   const response = await axios.post(
     "http://localhost:3003/auth/register",
     userData
   );
-  return response.data; // Assuming the server returns the created user data
+
+  return response.data;
 };
 
-console.log(registerUser);
+const userLogin = async (userData: any) => {
+  const response = await axios.post(
+    "http://localhost:3003/auth/login",
+    userData
+  );
+  localStorage.setItem("user", JSON.stringify(response.data));
+
+  console.log(JSON.parse(localStorage.getItem("user")!));
+};
 
 export const LoginPage = () => {
   const [currState, setCurrState] = useState("Login");
@@ -26,15 +36,17 @@ export const LoginPage = () => {
   });
 
   const { mutate /*status,isError, isSuccess, error*/ } = useMutation({
-    mutationFn: registerUser,
+    mutationFn: currState === "Login" ? userLogin : registerUser,
   });
 
+  const navigate = useNavigate();
   //const isLoading = (status as "loading" | "pending" | "idle") === "loading";
 
   // Handle form submission
   const handleSubmit = (event: any) => {
     event.preventDefault();
     mutate(formData);
+    navigate("/");
   };
 
   // Handle form input changes
@@ -46,13 +58,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex bg-yellow-400 text-black dark:bg-gray-900 dark:text-white items-center justify-around"
-      // style={{
-      //   backgroundImage: `url('../../assets/background.png')`,
-      //   backgroundSize: "cover",
-      // }}
-    >
+    <div className="min-h-screen flex bg-yellow-400 text-black dark:bg-gray-900 dark:text-white items-center justify-around">
       <img
         className="max-w-[(20vw, 200px)]"
         src="../../assets/logo.png"
