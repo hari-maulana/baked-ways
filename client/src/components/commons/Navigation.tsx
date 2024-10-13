@@ -33,13 +33,14 @@ export const Navigation: React.FC = () => {
         <div className="flex items-center justify-center h-[100%] gap-2">
           {isLogin ? (
             <>
-              <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
-              {/* <img
+              <a href="/cart" className=" hover:text-gray-600">
+                <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
+                {/* <img
                 className="w-10 h-10 rounded-full"
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                 alt="Rounded avatar"
               /> */}
-
+              </a>
               <Dropdown handleLogout={handleLogout} />
             </>
           ) : (

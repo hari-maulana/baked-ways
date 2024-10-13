@@ -12,7 +12,10 @@ export const UnpricedCard: React.FC<UnpricedCardProps> = ({
   bakeryName,
 }) => {
   return (
-    <div className=" w-[210px] h-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <a
+      href="/menu"
+      className=" w-[210px] h-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer hover:bg-gray-50 hover:border-gray-300 transition-all duration-100 ease-in-out active:text-gray-400 active:bg-gray-300"
+    >
       <div className="h-40 w-full">
         <img
           className="p-2 rounded-t-lg w-full h-full object-cover"
@@ -22,17 +25,17 @@ export const UnpricedCard: React.FC<UnpricedCardProps> = ({
       </div>
 
       <div className="px-5 pb-5">
-        <a href="#">
+        <div>
           <h5 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
             {bakeryName}
           </h5>
-        </a>
+        </div>
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-900 dark:text-white">
             {distance}
           </span>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
