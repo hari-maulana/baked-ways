@@ -1,7 +1,10 @@
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="relative inline-block text-left">
@@ -18,11 +21,27 @@ export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
 
       {isOpen && (
         <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
-          <div className="py-1">
+          <div className="py-1 w-full">
+            <button
+              onClick={() => {
+                navigate("/profile");
+                setIsOpen(!isOpen);
+              }}
+              className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              w-full
+            >
+              <Icon
+                icon="material-symbols:person-outline"
+                className="w-4 h-4"
+              />
+              Profile
+            </button>
             <button
               onClick={handleLogout}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-500 hover:bg-gray-100 border-t border-gray-600"
+              w-full
             >
+              <Icon icon="material-symbols:logout" className="w-4 h-4" />
               Logout
             </button>
             {/* <a
