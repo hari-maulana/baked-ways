@@ -6,7 +6,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
       <div
         id="top"
-        className="bg-yellow-400 h-[40vh] flex items-center justify-center"
+        className="bg-yellow-400 h-[40vh] flex items-center justify-center w-[100vw]"
       >
         <div className="w-[500px] mr-3">
           <p className="text-3xl">Cravings for baked goods?</p>

@@ -56,7 +56,9 @@ const RootLayout = () => {
   return (
     <>
       <Navigation />
-      <Outlet />
+      <div className="flex flex-col items-center">
+        <Outlet />
+      </div>
     </>
   );
 };
