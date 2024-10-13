@@ -7,6 +7,7 @@ import { CartPage } from "../pages/user/CartPage";
 import HomePage from "../pages/user/HomePage";
 import { AdminLayout } from "../layout/AdminLayout";
 import { RegisterPage } from "../pages/RegisterPage";
+import { ProfilePage } from "../pages/user/ProfilePage";
 
 const routes: RouteObject[] = [
   {
@@ -32,6 +33,10 @@ const routes: RouteObject[] = [
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
     ],
   },
