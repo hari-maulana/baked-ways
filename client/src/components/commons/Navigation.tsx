@@ -21,7 +21,7 @@ export const Navigation: React.FC = () => {
       {/* top nav */}
       <div
         id="nav"
-        className="flex flex-row justify-between bg-yellow-400 px-4 py-2 align-baseline h-16 shadow-lg mb-2"
+        className="flex flex-row justify-between bg-yellow-400 px-4 py-2 align-baseline h-16 shadow-lg"
       >
         {/* logo */}
         <div className="flex items-center justify-center h-[100%]">

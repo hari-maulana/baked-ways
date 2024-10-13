@@ -29,7 +29,7 @@ export default function HomePage() {
         <div>
           <div id="popular" className="mb-10 mt-10">
             <p className="text-3xl mb-3">Popular bakeries</p>
-            <div id="container" className="flex gap-4">
+            <div id="container" className="flex gap-4 flex-wrap">
               <BakeryLogo
                 bakeryName="Mako Bakery"
                 source="https://www.makobakery.com/assets/img/contact/logo-mako-contact-page.png"

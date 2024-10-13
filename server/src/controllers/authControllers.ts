@@ -27,6 +27,46 @@ const register = async (req: express.Request, res: express.Response) => {
             location: {},
           },
         },
+        bakery: {
+          create: {
+            name: fullName,
+            description: "",
+            address: "",
+            location: {},
+          },
+        },
+      },
+    });
+
+    res.status(201).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+const admRegister = async (req: express.Request, res: express.Response) => {
+  try {
+    const { email, password, fullName, gender, phone, role } = req.body;
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: passwordHash,
+        fullName,
+        gender,
+        phone,
+        role,
+        bakery: {
+          create: {
+            name: "",
+            description: "",
+            address: "",
+            location: {},
+          },
+        },
       },
     });
 

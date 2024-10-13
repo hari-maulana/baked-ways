@@ -5,12 +5,16 @@ export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
 
   return (
     <div className="relative inline-block text-left">
-      <button
+      <a
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none"
+        className=" hover:bg-blue-700 cursor-pointer focus:outline-none"
       >
-        Dropdown
-      </button>
+        <img
+          className="w-10 h-10 rounded-full"
+          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          alt="Rounded avatar"
+        />
+      </a>
 
       {isOpen && (
         <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
