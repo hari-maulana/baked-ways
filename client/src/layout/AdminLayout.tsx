@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { AdmNavbar } from "../components/admin/AdmNavbar";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
@@ -17,7 +17,9 @@ export const AdminLayout = () => {
   return (
     <>
       <AdmNavbar />
-      <p>Admin</p>
+      <div className="flex flex-col items-center">
+        <Outlet />
+      </div>
     </>
   );
 };

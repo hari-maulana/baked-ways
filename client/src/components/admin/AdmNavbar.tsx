@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authentication/authSlice";
 import { RootState } from "../../store";
 import { Dropdown } from "../commons/DropdownMenu";
+import { AdmDropdown } from "./AdmDropdown";
 
 export const AdmNavbar: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const AdmNavbar: React.FC = () => {
       >
         {/* logo */}
         <div className="flex items-center justify-center h-[100%]">
-          <img className="h-[100%] bg-cover" src="assets/logo.png" alt="" />
+          <img className="h-[100%] bg-cover" src="../assets/logo.png" alt="" />
         </div>
 
         {/* right nav */}
@@ -34,7 +35,7 @@ export const AdmNavbar: React.FC = () => {
             <>
               <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
 
-              <Dropdown handleLogout={handleLogout} />
+              <AdmDropdown handleLogout={handleLogout} />
             </>
           ) : (
             <>
