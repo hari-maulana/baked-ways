@@ -11,34 +11,48 @@ const register = async (req: express.Request, res: express.Response) => {
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: passwordHash,
-        fullName,
-        gender,
-        phone,
-        role,
-        profile: {
-          create: {
-            address: "",
-            profilePict: "",
-            location: {},
+    if (role === "ADMIN") {
+      const user = await prisma.user.create({
+        data: {
+          email,
+          password: passwordHash,
+          fullName,
+          gender,
+          phone,
+          role,
+          bakery: {
+            create: {
+              name: fullName,
+              description: "",
+              address: "",
+              location: {},
+            },
           },
         },
-        bakery: {
-          create: {
-            name: fullName,
-            description: "",
-            address: "",
-            location: {},
+      });
+
+      res.status(201).json(user);
+    } else if (role === "USER") {
+      const user = await prisma.user.create({
+        data: {
+          email,
+          password: passwordHash,
+          fullName,
+          gender,
+          phone,
+          role,
+          profile: {
+            create: {
+              address: "",
+              profilePict: "",
+              location: {},
+            },
           },
         },
-      },
-    });
+      });
 
-    res.status(201).json(user);
+      res.status(201).json(user);
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -61,7 +75,7 @@ const admRegister = async (req: express.Request, res: express.Response) => {
         role,
         bakery: {
           create: {
-            name: "",
+            name: fullName,
             description: "",
             address: "",
             location: {},

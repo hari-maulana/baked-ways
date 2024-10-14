@@ -16,6 +16,7 @@ enum Role {
 enum Gender {
   MALE
   FEMALE
+  OTHER
 }
 
 // User Model with Roles

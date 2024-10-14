@@ -2,10 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-//import path from 'path';
-//import multer, { diskStorage } from 'multer';
 import { loginRoute, registerRoute } from "./src/routes/authRoutes";
-// import { getUserProfile } from "./src/controllers/userControllers";
+import bcrypt from "bcrypt";
+
 import {
   getUserProfileRoute,
   updateUserProfileRoute,
@@ -72,14 +71,31 @@ app.use("/auth", loginRoute);
 app.use("/user", updateUserProfileRoute);
 app.use("/user", getUserProfileRoute);
 
-const getUserProfile = app.get("/users", async (req, res) => {
-  try {
-    const users = await prisma.user.findMany();
+app.post("/admin/bakery/product", async (req, res) => {
+  const userId = 4;
 
-    res.status(200).json(users);
+  try {
+    const { name, price, description } = req.body;
+    const bakery = await prisma.bakery.findUnique({
+      where: { adminId: userId },
+    });
+
+    if (!bakery) {
+      return res.status(400).json({ message: "You do not own a bakery yet." });
+    }
+
+    const product = await prisma.product.create({
+      data: {
+        name,
+        price: parseFloat(price),
+        description,
+        bakeryId: bakery.id,
+      },
+    });
+
+    res.status(201).json({ product });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Error adding product", error });
   }
 });
 
