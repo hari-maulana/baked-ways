@@ -37,7 +37,7 @@ export const RegisterPage = () => {
     email: "",
     password: "",
     fullName: "",
-    gender: Gender.Male,
+    gender: Gender.Other,
     role: Role.User,
     phone: "",
   });
@@ -77,6 +77,25 @@ export const RegisterPage = () => {
         className="bg-white py-2 px-4 flex flex-col gap-4 rounded-md w-[300px] text-black dark:bg-gray-900 dark:text-white"
       >
         <p className="font-bold text-xl">Sign up</p>
+        <div className="flex flex-col">
+          <label htmlFor="role" className="text-sm mb-1">
+            Register as
+          </label>
+          <select
+            id="role"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+            className="p-1 border rounded text-gray-500"
+          >
+            {Object.values(Role).map((role) => (
+              <option key={role} value={role}>
+                {role.charAt(0).toUpperCase() + role.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
         <FormInput
           type="email"
           placeholder="Email"
@@ -99,7 +118,9 @@ export const RegisterPage = () => {
         />
         <FormInput
           type="text"
-          placeholder="Full Name"
+          placeholder={
+            formData.role === Role.User ? "Full Name" : "Business Name"
+          }
           id="fullName"
           name="fullName"
           value={formData.fullName}
@@ -107,6 +128,27 @@ export const RegisterPage = () => {
           required
           autoComplete="name"
         />
+        {formData.role === Role.User && (
+          <div className="flex flex-col">
+            <label htmlFor="gender" className="text-sm mb-1">
+              Gender
+            </label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+              className="p-1 border rounded text-gray-500"
+            >
+              {Object.values(Gender).map((gender) => (
+                <option key={gender} value={gender}>
+                  {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <FormInput
           type="tel"
           placeholder="Phone Number"
@@ -117,45 +159,7 @@ export const RegisterPage = () => {
           required
           autoComplete="tel"
         />
-        <div className="flex flex-col">
-          <label htmlFor="gender" className="text-sm mb-1">
-            Gender
-          </label>
-          <select
-            id="gender"
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-            className="p-1 border rounded text-gray-500"
-          >
-            {Object.values(Gender).map((gender) => (
-              <option key={gender} value={gender}>
-                {gender.charAt(0).toUpperCase() + gender.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="role" className="text-sm mb-1">
-            Role
-          </label>
-          <select
-            id="role"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            required
-            className="p-1 border rounded text-gray-500"
-          >
-            {Object.values(Role).map((role) => (
-              <option key={role} value={role}>
-                {role.charAt(0).toUpperCase() + role.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
         <button
           type="submit"
           className="p-2 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"

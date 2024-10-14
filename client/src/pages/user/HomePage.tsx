@@ -3,7 +3,7 @@ import { BakeryLogo } from "../../components/commons/BakeryLogo";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+    <div className=" bg-white text-black dark:bg-gray-900 dark:text-white">
       <div
         id="top"
         className="bg-yellow-400 h-[40vh] flex items-center justify-center w-[100vw]"

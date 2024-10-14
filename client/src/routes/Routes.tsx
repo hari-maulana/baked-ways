@@ -8,6 +8,10 @@ import HomePage from "../pages/user/HomePage";
 import { AdminLayout } from "../layout/AdminLayout";
 import { RegisterPage } from "../pages/RegisterPage";
 import { ProfilePage } from "../pages/user/ProfilePage";
+import { AdmTransactionPage } from "../pages/admin/AdmTransactionPage";
+import { PartnerProfile } from "../pages/admin/PartnerProfile";
+import { AdmAddProductPage } from "../pages/admin/AdmAddProductPage";
+import { AdmRegisterPage } from "../pages/AdmRegisterPage";
 
 const routes: RouteObject[] = [
   {
@@ -17,6 +21,20 @@ const routes: RouteObject[] = [
   {
     path: "/admin",
     element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdmTransactionPage />,
+      },
+      {
+        path: "profile",
+        element: <PartnerProfile />,
+      },
+      {
+        path: "add-product",
+        element: <AdmAddProductPage />,
+      },
+    ],
   },
   {
     path: "/",
@@ -44,6 +62,10 @@ const routes: RouteObject[] = [
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/admin-register",
+    element: <AdmRegisterPage />,
   },
 
   {
