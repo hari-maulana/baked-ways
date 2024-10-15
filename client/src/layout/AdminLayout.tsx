@@ -6,13 +6,18 @@ import { RootState } from "../store";
 import { setUserProfile } from "../features/userProfile/userProfileSlice";
 import axios from "axios";
 
+enum Role {
+  USER = "USER",
+  ADMIN = "ADMIN",
+}
+
 export const AdminLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
 
-  const { isLogin } = useSelector((state: RootState) => state.auth);
+  const { isLogin, userId, token, role } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -37,6 +42,9 @@ export const AdminLayout = () => {
     } else {
       // Navigate to the landing page if not logged in
       navigate("/landing-page");
+    }
+    if (role === Role.USER) {
+      navigate("/");
     }
   }, [isLogin, navigate]);
 
