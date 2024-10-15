@@ -519,6 +519,89 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.24.0.tgz#0574d7e87b44ee8511d08cc7f914bcb802b70818"
   integrity sha512-fbMkAF7fufku0N2dE5TBXcNlg0pt0cJue4xBRE2Qc5Vqikxr4VCgKj/ht6SMdFcOacVA9rqF70APJ8RN/4vMJw==
 
+"@rpldy/abort@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/abort/-/abort-1.8.3.tgz#c31ada6be40519ccc88d713d5d461cedbb4b62b7"
+  integrity sha512-vDbXvXGpd+JQ4xyIr8NlzgEkdRhv+krPigb/R0Lbu+jj0eWq0QHUHOI/Bz7KBJTW+Q171+Kw81M29QHRArsKSQ==
+  dependencies:
+    "@rpldy/raw-uploader" "^1.8.3"
+    "@rpldy/shared" "^1.8.3"
+    "@rpldy/simple-state" "^1.8.3"
+
+"@rpldy/life-events@1.8.3", "@rpldy/life-events@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/life-events/-/life-events-1.8.3.tgz#fcd435c96e84f95ea5c1339072a8f373d47f09db"
+  integrity sha512-lHXTSaIRop2jIviZWRXUtDyUd4u1QnyY75iOZE3BgHK1hp9onhdhwia2vyGHMQtsq0XaqTb68CsKzGs4oibi4w==
+  dependencies:
+    "@rpldy/shared" "^1.8.3"
+
+"@rpldy/raw-uploader@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/raw-uploader/-/raw-uploader-1.8.3.tgz#d55150ad5234b90a7a259bb6b9c9e155e9793f30"
+  integrity sha512-3VtOMuGYWnPc0mwPc7Kh167W3FsKFECEuHDwqIo4lQ1GJnwuBeoUckU9qR/gdNY5yG9BR1usF4WqyPYqEkjL7Q==
+  dependencies:
+    "@rpldy/life-events" "^1.8.3"
+    "@rpldy/shared" "^1.8.3"
+
+"@rpldy/sender@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/sender/-/sender-1.8.3.tgz#6455726e54c3b089eaff59e777264ad13c6e92db"
+  integrity sha512-VlinXCPAuzJGIkh/0VBAylH8vtXzNJ9gKGc/LC+6pzelCyPZyMZbYOJqE1tvOgEik16jyUO2Zo6Qvsl1a9hH6A==
+  dependencies:
+    "@rpldy/shared" "^1.8.3"
+
+"@rpldy/shared-ui@1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared-ui/-/shared-ui-1.8.3.tgz#a6ac19cd696caddc925ba69580511fa881c8d4a8"
+  integrity sha512-kN9Rx1YZoUsq+dcihGbN7qpdtaP3kMagP5b4DrFNrHmeR68MtAYzDbJdrLl46DOXgfks6ZZI32fIy352yTfgrw==
+  dependencies:
+    "@rpldy/shared" "1.8.3"
+    "@rpldy/uploader" "1.8.3"
+
+"@rpldy/shared@1.8.3", "@rpldy/shared@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared/-/shared-1.8.3.tgz#dd4285b5a14ace55efdf0270afb18c9163b49686"
+  integrity sha512-UIli2+ryxrJDzfQqDGdg5VWwB7dpyMrGmf/ST1e9xvuL6nQRO/oYJN5c2zwzHqOY5AKV3NN34HJrABM0XM4Eaw==
+  dependencies:
+    invariant "^2.2.4"
+    just-throttle "^4.2.0"
+
+"@rpldy/simple-state@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/simple-state/-/simple-state-1.8.3.tgz#5c98224e996ea1fa0152f03e6d6ef0162a7b0692"
+  integrity sha512-I2qwsLNk3B0o7CeSHv0eFzGWe/SRxVU3e1zdiY9/nGwnlkvajWMxDb58sLkiL5U+50ljfb6a/39x89c0JQSYDQ==
+  dependencies:
+    "@rpldy/shared" "^1.8.3"
+
+"@rpldy/upload-button@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/upload-button/-/upload-button-1.8.3.tgz#97a833781573384edea9965061b3aa9708a55b5c"
+  integrity sha512-Y+idyOLEiywZX+Eh3JUphVe1F1KQM2MWwLTsmlhLQxCv8HXKPi/4ceDfbnB0vqKbz4ujt6+4XTNE1hyn3MTUVQ==
+  dependencies:
+    "@rpldy/shared-ui" "1.8.3"
+
+"@rpldy/uploader@1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploader/-/uploader-1.8.3.tgz#e79ca665e13f5bc02a4b1218ef3afca22153a937"
+  integrity sha512-5NmcvdwuclNPU0DJM9DLMjNRr3YkJ95wqAjIlaWpnchFFWtwKDNLoUZC6AA2lATJ5+Y+ykowobnXtUHaO5IGCQ==
+  dependencies:
+    "@rpldy/abort" "^1.8.3"
+    "@rpldy/life-events" "^1.8.3"
+    "@rpldy/raw-uploader" "^1.8.3"
+    "@rpldy/sender" "^1.8.3"
+    "@rpldy/shared" "^1.8.3"
+    "@rpldy/simple-state" "^1.8.3"
+
+"@rpldy/uploady@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploady/-/uploady-1.8.3.tgz#5e5013a01f8b4d336b01a8f4b8e73f4cb677f38a"
+  integrity sha512-FkJghfbaTAIJfEIphpXiR/yl4A9UjQoMSMvymv7mf3Jjl2Ww/3ZJ9YJJQUTUx4a91F0PHM1cOncHJnUGLoz3nA==
+  dependencies:
+    "@rpldy/life-events" "1.8.3"
+    "@rpldy/shared" "1.8.3"
+    "@rpldy/shared-ui" "1.8.3"
+    "@rpldy/uploader" "1.8.3"
+
 "@swc/core-darwin-arm64@1.7.26":
   version "1.7.26"
   resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.7.26.tgz#5f4096c00e71771ca1b18c824f0c92a052c70760"
@@ -1343,6 +1426,13 @@ imurmurhash@^0.1.4:
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==
 
+invariant@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
+  integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
+  dependencies:
+    loose-envify "^1.0.0"
+
 is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
@@ -1425,6 +1515,11 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
 
+just-throttle@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/just-throttle/-/just-throttle-4.2.0.tgz#5a22da10a4bdb906d2583400eff2fe3fbd9f9662"
+  integrity sha512-/iAZv1953JcExpvsywaPKjSzfTiCLqeguUTE6+VmK15mOcwxBx7/FHrVvS4WEErMR03TRazH8kcBSHqMagYIYg==
+
 keyv@^4.5.4:
   version "4.5.4"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.5.4.tgz#a879a99e29452f942439f2a405e3af8b31d4de93"
@@ -1467,7 +1562,7 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
-loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -1742,6 +1837,11 @@ react-dom@^18.3.1:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
+
+react-hook-form@^7.53.0:
+  version "7.53.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.53.0.tgz#3cf70951bf41fa95207b34486203ebefbd3a05ab"
+  integrity sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==
 
 react-is@^16.13.1:
   version "16.13.1"
