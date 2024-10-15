@@ -2,7 +2,15 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const AdmDropdown = ({ handleLogout }: { handleLogout: () => void }) => {
+interface AdmDropdownProps {
+  handleLogout: () => void;
+  bakeryPict?: string;
+}
+
+export const AdmDropdown: React.FC<AdmDropdownProps> = ({
+  handleLogout,
+  bakeryPict,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -11,7 +19,11 @@ export const AdmDropdown = ({ handleLogout }: { handleLogout: () => void }) => {
       <a onClick={() => setIsOpen(!isOpen)} className="">
         <img
           className="w-10 h-10 rounded-full cursor-pointer hover:opacity-80"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          src={
+            bakeryPict
+              ? bakeryPict
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          }
           alt="Rounded avatar"
         />
       </a>

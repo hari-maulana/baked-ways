@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authentication/authSlice";
 import { RootState } from "../../store";
-import { Dropdown } from "../commons/DropdownMenu";
 import { AdmDropdown } from "./AdmDropdown";
 
 export const AdmNavbar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const bakeryPict = useSelector(
+    (state: RootState) => state.userProfile.profile.profilePict
+  );
 
   const { isLogin } = useSelector((state: RootState) => state.auth);
 
@@ -17,6 +19,7 @@ export const AdmNavbar: React.FC = () => {
     dispatch(logout());
   };
 
+  console.log(bakeryPict);
   return (
     <>
       {/* top nav */}
@@ -35,7 +38,10 @@ export const AdmNavbar: React.FC = () => {
             <>
               <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
 
-              <AdmDropdown handleLogout={handleLogout} />
+              <AdmDropdown
+                handleLogout={handleLogout}
+                bakeryPict={bakeryPict}
+              />
             </>
           ) : (
             <>
