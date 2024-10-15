@@ -71,13 +71,13 @@ app.use("/auth", loginRoute);
 app.use("/user", updateUserProfileRoute);
 app.use("/user", getUserProfileRoute);
 
-app.post("/admin/bakery/product", async (req, res) => {
-  const userId = 4;
+app.post("/admin/bakery/:id", async (req, res) => {
+  const { id } = req.params;
 
   try {
     const { name, price, description } = req.body;
     const bakery = await prisma.bakery.findUnique({
-      where: { adminId: userId },
+      where: { adminId: parseInt(id) },
     });
 
     if (!bakery) {
@@ -96,6 +96,21 @@ app.post("/admin/bakery/product", async (req, res) => {
     res.status(201).json({ product });
   } catch (error) {
     res.status(500).json({ message: "Error adding product", error });
+  }
+});
+
+app.get("/users", async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      include: {
+        profile: true,
+        bakery: true,
+      },
+    });
+
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
