@@ -7,20 +7,11 @@ const prisma = new PrismaClient();
 const getUserProfile = async (req: express.Request, res: express.Response) => {
   const userId = req.params.userId;
   try {
-    const profile = await prisma.userProfile.findUnique({
-      where: { userId: parseInt(userId) },
+    const profile = await prisma.user.findUnique({
+      where: { id: parseInt(userId) },
       include: {
-        user: {
-          select: {
-            email: true,
-            fullName: true,
-            gender: true,
-            phone: true,
-            role: true,
-            cart: true,
-            orders: true,
-          },
-        },
+        profile: true,
+        bakery: true,
       },
     });
     if (!profile) {

@@ -28,6 +28,13 @@ const register = async (req: express.Request, res: express.Response) => {
               location: {},
             },
           },
+          profile: {
+            create: {
+              address: "",
+              profilePict: "",
+              location: {},
+            },
+          },
         },
       });
 
