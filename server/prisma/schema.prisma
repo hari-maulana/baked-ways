@@ -63,12 +63,12 @@ model Bakery {
   Order Order[]
 }
 
-// Product Model
 model Product {
   id          Int            @id @default(autoincrement())
   name        String
   description String?
   price       Float
+  imageUrl    String?
   bakeryId    Int
   bakery      Bakery         @relation(fields: [bakeryId], references: [id])
   carts       CartProduct[]
