@@ -2,7 +2,15 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
+interface DropdownProps {
+  handleLogout: () => void;
+  porfilePict?: string;
+}
+
+export const Dropdown: React.FC<DropdownProps> = ({
+  handleLogout,
+  porfilePict,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -11,7 +19,11 @@ export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
       <a onClick={() => setIsOpen(!isOpen)} className="">
         <img
           className="w-10 h-10 rounded-full cursor-pointer hover:opacity-80"
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          src={
+            porfilePict
+              ? porfilePict
+              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          }
           alt="Rounded avatar"
         />
       </a>
@@ -19,6 +31,20 @@ export const Dropdown = ({ handleLogout }: { handleLogout: () => void }) => {
       {isOpen && (
         <div className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none">
           <div className="py-1 w-full">
+            <button
+              onClick={() => {
+                navigate("/");
+                setIsOpen(!isOpen);
+              }}
+              className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              w-full
+            >
+              <Icon
+                icon="material-symbols:home-outline-sharp"
+                className="w-4 h-4"
+              />
+              Home
+            </button>
             <button
               onClick={() => {
                 navigate("/profile");

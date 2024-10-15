@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
 import EditProfileModal from "../../components/profilePage/EditProfileModal";
+import { RootState } from "../../store";
 
 export const ProfilePage = () => {
+  const userProfile = useSelector((state: RootState) => state.userProfile);
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
       {/* container kiri*/}
@@ -9,23 +12,27 @@ export const ProfilePage = () => {
         <div className="flex flex-row">
           {/* gambar profile */}
           <img
-            className="w-36 h-48 object-cover mr-5 mb-5 rounded"
-            src="https://vimhomes.vn/wp-content/uploads/2023/03/vietnamese-long-hair-1.jpg"
+            className="w-36 h-48 object-contain mr-5 mb-5 rounded bg-slate-200"
+            src={
+              userProfile
+                ? userProfile.profile.profilePict
+                : "https://via.placeholder.com/150"
+            }
             alt=""
           />
           {/* keterangan profile */}
           <div className="flex flex-col justify-between h-48">
             <div>
               <p className="font-bold">Name</p>
-              <p>Jane Dewe</p>
+              <p>{userProfile?.fullName}</p>
             </div>
             <div>
               <p className="font-bold">Email</p>
-              <p>jane@dw.com</p>
+              <p>{userProfile?.email}</p>
             </div>
             <div>
               <p className="font-bold">Phone</p>
-              <p>0987654321</p>
+              <p>{userProfile?.phone}</p>
             </div>
           </div>
         </div>

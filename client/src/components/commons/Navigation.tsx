@@ -11,6 +11,9 @@ export const Navigation: React.FC = () => {
   const navigate = useNavigate();
 
   const { isLogin } = useSelector((state: RootState) => state.auth);
+  const profilePict = useSelector(
+    (state: RootState) => state.userProfile.profile.profilePict
+  );
 
   const handleLogout = () => {
     dispatch(logout());
@@ -41,7 +44,7 @@ export const Navigation: React.FC = () => {
                 alt="Rounded avatar"
               /> */}
               </a>
-              <Dropdown handleLogout={handleLogout} />
+              <Dropdown handleLogout={handleLogout} porfilePict={profilePict} />
             </>
           ) : (
             <>

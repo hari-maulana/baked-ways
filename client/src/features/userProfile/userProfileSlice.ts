@@ -2,35 +2,57 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserProfileState {
   id: number;
-  userId: number;
-  address: string;
-  location: object;
-  profilePict: string;
-  user: {
-    email: string;
-    fullName: string;
-    gender: string;
-    phone: string;
-    role: string;
-    cart: null;
-    orders: [];
+  email: string;
+  //password: string;
+  fullName: string;
+  phone: string;
+  gender: string;
+  role: string;
+  //createdAt: string;
+  //updatedAt: string;
+  profile: {
+    id: number;
+    userId: number;
+    address: string;
+    location: object;
+    profilePict: string;
+  };
+  bakery: {
+    id: number;
+    name: string;
+    description: string;
+    address: string;
+    location: object;
+    adminId: number;
+    //createdAt: string;
+    //updatedAt: string;
   };
 }
 
 const initialState: UserProfileState = {
   id: 0,
-  userId: 0,
-  address: "",
-  location: {},
-  profilePict: "",
-  user: {
-    email: "",
-    fullName: "",
-    gender: "",
-    phone: "",
-    role: "",
-    cart: null,
-    orders: [],
+  email: "",
+  //password: "",
+  fullName: "",
+  phone: "",
+  gender: "",
+  role: "",
+  //createdAt: "",
+  //updatedAt: "",
+  profile: {
+    id: 0,
+    userId: 0,
+    address: "",
+    location: {},
+    profilePict: "",
+  },
+  bakery: {
+    id: 0,
+    adminId: 0,
+    name: "",
+    description: "",
+    address: "",
+    location: {},
   },
 };
 
@@ -43,35 +65,36 @@ const userProfileSlice = createSlice({
       action: PayloadAction<Partial<UserProfileState>>
     ) => {
       state.id = action.payload.id || state.id;
-      state.userId = action.payload.userId || state.userId;
-      state.address = action.payload.address || state.address;
-      state.location = action.payload.location || state.location;
-      state.profilePict = action.payload.profilePict || state.profilePict;
-      state.user = {
-        email: action.payload.user?.email || state.user.email,
-        fullName: action.payload.user?.fullName || state.user.fullName,
-        gender: action.payload.user?.gender || state.user.gender,
-        phone: action.payload.user?.phone || state.user.phone,
-        role: action.payload.user?.role || state.user.role,
-        cart: action.payload.user?.cart || state.user.cart,
-        orders: action.payload.user?.orders || state.user.orders,
-      };
+      state.email = action.payload.email || state.email;
+      state.fullName = action.payload.fullName || state.fullName;
+      state.phone = action.payload.phone || state.phone;
+      state.gender = action.payload.gender || state.gender;
+      state.role = action.payload.role || state.role;
+      state.profile = action.payload.profile || state.profile;
+      state.bakery = action.payload.bakery || state.bakery;
     },
 
     clearUserProfile: (state) => {
       state.id = 0;
-      state.userId = 0;
-      state.address = "";
-      state.location = {};
-      state.profilePict = "";
-      state.user = {
-        email: "",
-        fullName: "",
-        gender: "",
-        phone: "",
-        role: "",
-        cart: null,
-        orders: [],
+      state.email = "";
+      state.fullName = "";
+      state.phone = "";
+      state.gender = "";
+      state.role = "";
+      state.profile = {
+        id: 0,
+        userId: 0,
+        address: "",
+        location: {},
+        profilePict: "",
+      };
+      state.bakery = {
+        id: 0,
+        adminId: 0,
+        name: "",
+        description: "",
+        address: "",
+        location: {},
       };
     },
   },
