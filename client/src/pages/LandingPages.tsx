@@ -4,14 +4,17 @@ import { BakeryLogo } from "../components/commons/BakeryLogo";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 import { Navigation } from "../components/commons/Navigation";
+import { useEffect } from "react";
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const { isLogin } = useSelector((state: RootState) => state.auth);
 
-  if (isLogin) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <>
