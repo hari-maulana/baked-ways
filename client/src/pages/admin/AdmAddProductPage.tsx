@@ -1,44 +1,58 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useForm } from "react-hook-form";
+
+interface ProductFormData {
+  name: string;
+  price: string;
+  description: string;
+  image: FileList;
+}
 
 export const AdmAddProductPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    productName: "",
-    productPict: "",
-    price: "",
-  });
+  const adminId = useSelector((state: RootState) => state.auth.userId);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProductFormData>();
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const onSubmit = async (data: ProductFormData) => {
+    const formData = new FormData();
+    formData.append("image", data.image[0]); // Append the first file
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("description", data.description);
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Handle form submission (e.g., send to an API)
-    console.log("Form data submitted:", formData);
-    toggleModal(); // Close modal after saving
+    try {
+      const response = await axios.post(
+        `http://localhost:3003/admin/bakery/product/2`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Product added:", response.data);
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
-      <form className="mt-4 w-full" onSubmit={handleSubmit}>
+      <form className="mt-4 w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
             Product Name
           </label>
           <input
             type="text"
-            name="productName"
-            value={formData.productName}
-            onChange={handleChange}
+            {...register("name", { required: "Name is required" })}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
             placeholder="Enter Product Name"
           />
@@ -50,11 +64,22 @@ export const AdmAddProductPage = () => {
           </label>
           <input
             type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
+            {...register("price", { required: "Price is required" })}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
             placeholder="Enter Product Price"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <input
+            type="text"
+            {...register("description", {
+              required: "Description is required",
+            })}
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+            placeholder="Enter Product Description"
           />
         </div>
         <div className="mb-4">
@@ -63,21 +88,12 @@ export const AdmAddProductPage = () => {
           </label>
           <input
             type="file"
-            name="productPict"
-            value={formData.productPict}
-            onChange={handleChange}
+            {...register("image")}
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
             placeholder="Upload Product Picture"
           />
         </div>
         <div className="flex justify-end space-x-2">
-          {/* <button
-            type="button"
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            onClick={toggleModal}
-          >
-            Cancel
-          </button> */}
           <button
             type="submit"
             className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
@@ -89,3 +105,57 @@ export const AdmAddProductPage = () => {
     </div>
   );
 };
+
+/**import React from "react";
+import axios from "axios";
+
+
+
+export const AdmAddProductPage: React.FC<{ bakeryId: string }> = ({
+  bakeryId,
+}) => {
+ 
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          {...register("name", { required: "Name is required" })}
+        />
+        {errors.name && <p>{errors.name.message}</p>}
+      </div>
+
+      <div>
+        <label>Price:</label>
+        <input
+          type="number"
+          step="0.01"
+          {...register("price", { required: "Price is required" })}
+        />
+        {errors.price && <p>{errors.price.message}</p>}
+      </div>
+
+      <div>
+        <label>Description:</label>
+        <textarea
+          {...register("description", { required: "Description is required" })}
+        />
+        {errors.description && <p>{errors.description.message}</p>}
+      </div>
+
+      <div>
+        <label>Image:</label>
+        <input
+          type="file"
+          {...register("image", { required: "Image is required" })}
+        />
+        {errors.image && <p>{errors.image.message}</p>}
+      </div>
+
+      <button type="submit">Add Product</button>
+    </form>
+  );
+};
+ */
