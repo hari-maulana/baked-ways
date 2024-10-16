@@ -43,7 +43,7 @@ model UserProfile {
   address     String?
   location    Json?
   profilePict String?
-  user        User    @relation(fields: [userId], references: [id])
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Bakery Model (Managed by Admin users)
@@ -53,9 +53,10 @@ model Bakery {
   description  String?
   address      String
   location     Json // Store map information as JSON (e.g., coordinates)
+  image        String?
   products     Product[]
   adminId      Int           @unique
-  admin        User          @relation(fields: [adminId], references: [id]) // Admin is a User with role 'ADMIN'
+  admin        User          @relation(fields: [adminId], references: [id], onDelete: Cascade) // Admin is a User with role 'ADMIN'
   transactions Transaction[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -68,7 +69,7 @@ model Product {
   name        String
   description String?
   price       Float
-  imageUrl    String?
+  image       String?
   bakeryId    Int
   bakery      Bakery         @relation(fields: [bakeryId], references: [id])
   carts       CartProduct[]
