@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 interface ProductFormData {
   name: string;
@@ -13,11 +13,13 @@ interface ProductFormData {
 }
 
 export const AdmAddProductPage = () => {
+  const [loading, setLoading] = useState(false);
   const adminId = useSelector((state: RootState) => state.auth.userId);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
+    reset,
   } = useForm<ProductFormData>();
 
   const onSubmit = async (data: ProductFormData) => {
@@ -27,9 +29,10 @@ export const AdmAddProductPage = () => {
     formData.append("price", data.price);
     formData.append("description", data.description);
 
+    setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3003/admin/bakery/product/2`,
+        `http://localhost:3003/admin/bakery/product/${adminId}`,
         formData,
         {
           headers: {
@@ -38,10 +41,16 @@ export const AdmAddProductPage = () => {
         }
       );
       console.log("Product added:", response.data);
+      toast.success("Product added successfully!");
+      reset();
     } catch (error) {
       console.error("Error adding product:", error);
+      toast.error("Failed to add product.");
+    } finally {
+      setLoading(false);
     }
   };
+  const notify = () => toast.success("This is a simple toast notification!");
 
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
@@ -96,9 +105,10 @@ export const AdmAddProductPage = () => {
         <div className="flex justify-end space-x-2">
           <button
             type="submit"
-            className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
+            disabled={loading}
+            className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-500"
           >
-            Add Product
+            {loading ? "Loading..." : "Add Product"}
           </button>
         </div>
       </form>
