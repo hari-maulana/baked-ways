@@ -1,11 +1,13 @@
 import { ProductCard } from "../../components/cards/ProductCard";
+import { useParams } from "react-router-dom";
 
 const MenuPage = () => {
+  const { id } = useParams<{ id: string | undefined }>();
   return (
     <>
       <div className="bg-[#f3f3f3] h-[max-content] flex items-center justify-center mt-10">
         <div>
-          <p className="text-3xl mb-5">Mako Bakery, Menu's</p>
+          <p className="text-3xl mb-5">Mako Bakery id: {id}, Menu's</p>
           <div id="container" className="flex gap-4 mb-10">
             <ProductCard
               productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"

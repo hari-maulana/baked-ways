@@ -45,7 +45,7 @@ const routes: RouteObject[] = [
         element: <HomePage />,
       },
       {
-        path: "/menu",
+        path: "/menu/:id",
         element: <MenuPage />,
       },
       {

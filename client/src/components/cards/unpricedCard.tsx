@@ -15,7 +15,7 @@ export const UnpricedCard: React.FC<UnpricedCardProps> = ({
 }) => {
   return (
     <a
-      href="/menu"
+      href={`/menu/${bakeryId}`}
       className=" w-[210px] h-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer hover:bg-gray-50 hover:border-gray-300 transition-all duration-100 ease-in-out active:text-gray-400 active:bg-gray-300"
     >
       <div className="h-40 w-full">
