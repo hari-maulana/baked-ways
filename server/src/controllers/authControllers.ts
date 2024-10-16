@@ -26,6 +26,7 @@ const register = async (req: express.Request, res: express.Response) => {
               description: "",
               address: "",
               location: {},
+              image: "",
             },
           },
           profile: {

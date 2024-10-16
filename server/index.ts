@@ -111,7 +111,7 @@ app.post(
           name,
           price: parsedPrice,
           description,
-          imageUrl: req.file.path,
+          image: req.file.path,
           bakeryId: bakery.id,
         },
       });
