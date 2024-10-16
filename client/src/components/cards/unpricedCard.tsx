@@ -4,12 +4,14 @@ interface UnpricedCardProps {
   productPict: string;
   bakeryName: string;
   distance: string;
+  bakeryId: number;
 }
 
 export const UnpricedCard: React.FC<UnpricedCardProps> = ({
   productPict,
   distance,
   bakeryName,
+  bakeryId,
 }) => {
   return (
     <a
@@ -27,7 +29,7 @@ export const UnpricedCard: React.FC<UnpricedCardProps> = ({
       <div className="px-5 pb-5">
         <div>
           <h5 className="text-md font-semibold tracking-tight text-gray-900 dark:text-white">
-            {bakeryName}
+            {bakeryName} id: {bakeryId}
           </h5>
         </div>
         <div className="flex items-center justify-between">

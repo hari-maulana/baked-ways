@@ -1,7 +1,24 @@
+import axios from "axios";
 import { UnpricedCard } from "../../components/cards/UnpricedCard";
 import { BakeryLogo } from "../../components/commons/BakeryLogo";
+import { useQuery } from "@tanstack/react-query";
 
 export default function HomePage() {
+  /** fetch data */
+  const fetchBakeries = async () => {
+    const response = await axios.get("http://localhost:3003/bakeries");
+    return response.data;
+  };
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["bakeries"],
+    queryFn: fetchBakeries,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching data</div>;
+  console.log(data);
+
   return (
     <div className=" bg-white text-black dark:bg-gray-900 dark:text-white">
       <div
@@ -54,25 +71,20 @@ export default function HomePage() {
           <div id="near mb-10">
             <p className="text-3xl mb-3">Bakeries near you</p>
             <div id="container" className="flex gap-4 mb-10">
+              {data?.bakeries?.map((bakery: any, index: number) => (
+                <UnpricedCard
+                  key={index}
+                  bakeryId={bakery?.id}
+                  productPict={bakery?.image}
+                  bakeryName={bakery?.name}
+                  distance="1.1 km"
+                />
+              ))}
               <UnpricedCard
                 productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                 bakeryName="Mako Bakery"
                 distance="1.1 km"
-              />
-              <UnpricedCard
-                productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
-                bakeryName="Mako Bakery"
-                distance="1.1 km"
-              />
-              <UnpricedCard
-                productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
-                bakeryName="Mako Bakery"
-                distance="1.1 km"
-              />
-              <UnpricedCard
-                productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
-                bakeryName="Mako Bakery"
-                distance="1.1 km"
+                bakeryId={1}
               />
             </div>
           </div>
