@@ -20,9 +20,12 @@ const MenuPage = () => {
   return (
     <>
       <div className="bg-[#f3f3f3] h-[max-content] flex items-center justify-center mt-10">
-        <div>
+        <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 items-center justify-center">
           <p className="text-3xl mb-5">Mako Bakery id: {id}, Menu's</p>
-          <div id="container" className="flex gap-4 mb-10">
+          <div
+            id="container"
+            className="flex flex-wrap mb-10 w-full items-center justify-between"
+          >
             {data?.products?.length > 0 ? (
               data?.products?.map((product: any, index: number) => (
                 <ProductCard
@@ -36,6 +39,30 @@ const MenuPage = () => {
             ) : (
               <p>No products available</p>
             )}
+            <ProductCard
+              productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
+              productName="Rendang Floss"
+              price="Rp. 10.000"
+              orderButton={() => {}}
+            />
+            <ProductCard
+              productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
+              productName="Rendang Floss"
+              price="Rp. 10.000"
+              orderButton={() => {}}
+            />
+            <ProductCard
+              productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
+              productName="Rendang Floss"
+              price="Rp. 10.000"
+              orderButton={() => {}}
+            />
+            <ProductCard
+              productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
+              productName="Rendang Floss"
+              price="Rp. 10.000"
+              orderButton={() => {}}
+            />
             <ProductCard
               productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
               productName="Rendang Floss"

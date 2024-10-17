@@ -20,33 +20,26 @@ export default function HomePage() {
   console.log(data);
 
   return (
-    <div className=" bg-white text-black dark:bg-gray-900 dark:text-white">
+    <div className=" bg-[#f3f3f3] text-black dark:bg-gray-900 dark:text-white">
       <div
         id="top"
-        className="bg-yellow-400 h-[40vh] flex items-center justify-center w-[100vw]"
+        className=" h-[max-content] flex items-center justify-center w-[97%] mx-auto mt-2"
       >
-        <div className="w-[500px] mr-3">
-          <p className="text-3xl">Cravings for baked goods?</p>
-          <p className="text-3xl">Exclusive express delivery only for you!</p>
-          <div className="flex items-center justify-between gap-2">
-            <div className="bg-black w-[200px] h-[2px] self-start mt-3"></div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
-              nihil obcaecati doloribus voluptas quo expedita consequuntur
-            </p>
-          </div>
-        </div>
-        <img className="h-[100%]" src="assets/landing-image.png" alt="" />
+        <img
+          className="object-cover h-[100%] rounded-md"
+          src="https://res.cloudinary.com/circlehmhm/image/upload/v1729187691/Dessert_Cake_Store_Promotions_Banner_3_vjul5g.png"
+          alt=""
+        />
       </div>
 
       <div
         id="bottom"
-        className="bg-[#f3f3f3] h-[max-content] flex items-center justify-center"
+        className=" h-[max-content] flex items-center justify-center"
       >
         <div>
           <div id="popular" className="mb-10 mt-10">
             <p className="text-3xl mb-3">Popular bakeries</p>
-            <div id="container" className="flex gap-4 flex-wrap">
+            <div id="container" className="flex gap-10 flex-wrap">
               <BakeryLogo
                 bakeryName="Mako Bakery"
                 source="https://www.makobakery.com/assets/img/contact/logo-mako-contact-page.png"
@@ -70,7 +63,7 @@ export default function HomePage() {
           </div>
           <div id="near mb-10">
             <p className="text-3xl mb-3">Bakeries near you</p>
-            <div id="container" className="flex gap-4 mb-10">
+            <div id="container" className="flex gap-10 mb-10">
               {data?.bakeries?.map((bakery: any, index: number) => (
                 <UnpricedCard
                   key={index}
@@ -81,8 +74,20 @@ export default function HomePage() {
                 />
               ))}
               <UnpricedCard
-                productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
-                bakeryName="Mako Bakery"
+                productPict="https://media-cdn.tripadvisor.com/media/photo-s/0f/cd/54/fa/img-20170707-wa0001-largejpg.jpg"
+                bakeryName="Moms Asna Bakery"
+                distance="1.1 km"
+                bakeryId={1}
+              />
+              <UnpricedCard
+                productPict="https://cdn.vox-cdn.com/thumbor/NGFY2u5Gi4-elsDW_KB7IMfQAxg=/0x0:2000x1333/1200x675/filters:focal(840x507:1160x827)/cdn.vox-cdn.com/uploads/chorus_image/image/73579666/Mr_T_Cafe_14.0.jpg"
+                bakeryName="Mr. Cake & Cookies"
+                distance="1.1 km"
+                bakeryId={1}
+              />
+              <UnpricedCard
+                productPict="https://www.simplyrecipes.com/thmb/tR-5eHAZ3lgNR6Yvu3yxdHMNpk8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Simply-Recipes-Easy-Banana-Bread-LEAD-2-2-63dd39af009945d58f5bf4c2ae8d6070.jpg"
+                bakeryName="Aruna Bakery"
                 distance="1.1 km"
                 bakeryId={1}
               />

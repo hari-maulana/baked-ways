@@ -65,10 +65,10 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-yellow-400 text-black dark:bg-gray-900 dark:text-white items-center justify-around">
+    <div className="min-h-screen flex bg-[#f3f3f3] text-black dark:bg-gray-900 dark:text-white items-center justify-around">
       <img
-        className="max-w-[(20vw, 200px)]"
-        src="../../assets/logo.png"
+        className="w-[300px] h-[300px]"
+        src="https://res.cloudinary.com/circlehmhm/image/upload/v1729192975/Untitled_design_1_ftdebz.svg"
         alt="logo"
       />
 

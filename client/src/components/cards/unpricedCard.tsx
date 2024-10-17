@@ -15,12 +15,12 @@ export const UnpricedCard: React.FC<UnpricedCardProps> = ({
 }) => {
   return (
     <a
-      href={`/menu/${bakeryId}`}
-      className=" w-[210px] h-60 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer hover:bg-gray-50 hover:border-gray-300 transition-all duration-100 ease-in-out active:text-gray-400 active:bg-gray-300"
+      href={bakeryId > 0.1 ? `/menu/${bakeryId}` : `#`}
+      className=" w-[250px] h-60 bg-white border border-gray-200 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer hover:bg-gray-50 hover:border-gray-300 transition-all duration-100 ease-in-out active:text-gray-400 active:bg-gray-300"
     >
       <div className="h-40 w-full">
         <img
-          className="p-2 rounded-t-lg w-full h-full object-cover"
+          className="p-2 rounded-t-xl w-full h-full object-cover"
           src={productPict}
           alt="product image"
         />

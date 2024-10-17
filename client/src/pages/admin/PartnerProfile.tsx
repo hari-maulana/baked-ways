@@ -54,7 +54,7 @@ export const PartnerProfile = () => {
             <div className="flex flex-col items-center justify-between">
               <img
                 className="w-25 h-10 object-contain rounded"
-                src="../assets/logo.png"
+                src="https://res.cloudinary.com/circlehmhm/image/upload/v1729191371/Bread_House_Bakery_Logo_1600_x_300_px_1600_x_200_px_1600_x_240_px_2_hyps46.svg"
                 alt=""
               />
               <p className="text-green-500 font-bold">Delivered</p>

@@ -25,18 +25,24 @@ export const AdmNavbar: React.FC = () => {
       {/* top nav */}
       <div
         id="nav"
-        className="flex flex-row justify-between bg-yellow-400 px-4 py-2 align-baseline h-16 shadow-lg mb-2"
+        className="flex flex-row justify-between bg-[#e0595f] px-4 py-2 items-center h-16 shadow-lg"
       >
         {/* logo */}
-        <div className="flex items-center justify-center h-[100%]">
-          <img className="h-[100%] bg-cover" src="../assets/logo.png" alt="" />
+        <div className="flex items-center h-[100%]">
+          <a className="h-[100%] cursor-pointer" href="/">
+            <img
+              className="h-[100%] bg-cover"
+              src="https://res.cloudinary.com/circlehmhm/image/upload/v1729191114/Bread_House_Bakery_Logo_1600_x_300_px_1600_x_200_px_1600_x_240_px_1_eka6rt.svg"
+              alt=""
+            />
+          </a>
         </div>
 
         {/* right nav */}
         <div className="flex items-center justify-center h-[100%] gap-2">
           {isLogin ? (
             <>
-              <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
+              <p className="text-2xl font-bold">Admin Panel</p>
 
               <AdmDropdown
                 handleLogout={handleLogout}

@@ -39,7 +39,7 @@ export const AdmTransactionPage = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
-              <tr className="bg-yellow-400 border-b">
+              <tr className="bg-[#e0595f] border-b">
                 <th className="py-2 px-4 text-left">No.</th>
                 <th className="py-2 px-4 text-left">Name</th>
                 <th className="py-2 px-4 text-left">Address</th>

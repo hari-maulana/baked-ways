@@ -19,24 +19,16 @@ export default function LandingPage() {
   return (
     <>
       <Navigation />
-      <div className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white">
+      <div className="min-h-screen bg-[#f3f3f3] text-black dark:bg-gray-900 dark:text-white">
         <div
           id="top"
-          className="bg-yellow-400 h-[40vh] flex items-center justify-center"
+          className=" h-[max-content] flex items-center justify-center w-[97%] mx-auto mt-2"
         >
-          <div className="w-[500px] mr-3">
-            <p className="text-3xl">Cravings for baked goods?</p>
-            <p className="text-3xl">Exclusive express delivery only for you!</p>
-            <div className="flex items-center justify-between gap-2">
-              <div className="bg-black w-[200px] h-[2px] self-start mt-3"></div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Tenetur, nihil obcaecati doloribus voluptas quo expedita
-                consequuntur
-              </p>
-            </div>
-          </div>
-          <img className="h-[100%]" src="assets/landing-image.png" alt="" />
+          <img
+            className="object-cover h-[100%] rounded-md"
+            src="https://res.cloudinary.com/circlehmhm/image/upload/v1729187691/Dessert_Cake_Store_Promotions_Banner_3_vjul5g.png"
+            alt=""
+          />
         </div>
 
         <div
@@ -72,21 +64,25 @@ export default function LandingPage() {
               <p className="text-3xl mb-3">Bakeries near you</p>
               <div id="container" className="flex gap-4 mb-10">
                 <UnpricedCard
+                  bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
                 <UnpricedCard
+                  bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
                 <UnpricedCard
+                  bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
                 <UnpricedCard
+                  bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"

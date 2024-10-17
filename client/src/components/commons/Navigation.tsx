@@ -23,24 +23,47 @@ export const Navigation: React.FC = () => {
     <>
       <div
         id="nav"
-        className="flex flex-row justify-between bg-yellow-400 px-4 py-2 align-baseline h-16 shadow-lg"
+        className="flex flex-row justify-between bg-[#e0595f] px-4 py-2 items-center h-16 shadow-lg"
       >
         {/* logo */}
-        <div className="flex items-center justify-center h-[100%]">
+        <div className="flex items-center h-[100%]">
           <a className="h-[100%] cursor-pointer" href="/">
             <img
               className="h-[100%] bg-cover"
-              src="https://res.cloudinary.com/circlehmhm/image/upload/v1729101327/logo_fznrvj.png"
+              src="https://res.cloudinary.com/circlehmhm/image/upload/v1729191114/Bread_House_Bakery_Logo_1600_x_300_px_1600_x_200_px_1600_x_240_px_1_eka6rt.svg"
               alt=""
             />
           </a>
+
+          {isLogin && (
+            <div className="flex items-center justify-center h-[100%] gap-8 ms-10">
+              <a
+                className="h-[100%] cursor-pointer flex height-full items-center justify-center text-white text-xl hover:text-gray-600 hover:opacity-80"
+                href="/"
+              >
+                <p>Home</p>
+              </a>
+              <a
+                className="h-[100%] cursor-pointer flex height-full items-center justify-center text-white text-xl hover:text-gray-600 hover:opacity-80"
+                href="/"
+              >
+                <p>Recommendations</p>
+              </a>
+              <a
+                className="h-[100%] cursor-pointer flex height-full items-center justify-center text-white text-xl hover:text-gray-600 hover:opacity-80"
+                href="/"
+              >
+                <p>Pre-Order</p>
+              </a>
+            </div>
+          )}
         </div>
 
         {/* right nav */}
         <div className="flex items-center justify-center h-[100%] gap-2">
           {isLogin ? (
             <>
-              <a href="/cart" className=" hover:text-gray-600">
+              <a href="/cart" className=" text-white hover:text-gray-600">
                 <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
               </a>
               <Dropdown handleLogout={handleLogout} porfilePict={profilePict} />
