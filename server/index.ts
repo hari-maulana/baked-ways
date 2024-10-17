@@ -10,6 +10,8 @@ import {
   getUserProfileRoute,
   updateUserProfileRoute,
 } from "./src/routes/userRoutes";
+import { bakeries, getProducts } from "./src/controllers/partnerController";
+import { get } from "http";
 
 const prisma = new PrismaClient();
 const app = express();
@@ -20,10 +22,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /** file uploads */
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
 cloudinary.v2.config({
   cloud_name: "circlehmhm",
   api_key: "792244431418968",
@@ -36,46 +34,31 @@ interface CloudinaryParams {
   public_id?: (req: express.Request, file: Express.Multer.File) => string;
 }
 
-// Configure Cloudinary storage for Multer
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
   params: {
-    folder: "bw-products", // Folder di cludinary
-    allowed_formats: ["jpg", "jpeg", "png"], // format yang boleh
-    public_id: (req, file) => `products/${Date.now()}_${file.originalname}`, // Custom filename
+    folder: "bw-products",
+    allowed_formats: ["jpg", "jpeg", "png"],
+    public_id: (req, file) => `products/${Date.now()}_${file.originalname}`,
   } as CloudinaryParams,
 });
-
-// Create multer instance with Cloudinary storage
-// const upload = multer({
-//   storage,
-//   limits: { fileSize: 10 * 1024 * 1024 },
-// });
-
-// Upload route
-// app.post("/upload", upload.single("image"), (req, res) => {
-//   if (!req.file) {
-//     return res.status(400).send("No file uploaded.");
-//   }
-
-//   res.json({
-//     message: "File uploaded successfully!",
-//     filePath: req.file.path,
-//   });
-// });
-/** file uploads */
-
-// ROUTES
-app.use("/auth", registerRoute);
-app.use("/auth", loginRoute);
-
-app.use("/user", updateUserProfileRoute);
-app.use("/user", getUserProfileRoute);
 
 const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 },
 });
+
+/** file uploads */
+
+// ROUTES
+app.use("/auth", registerRoute);
+app.use("/auth", loginRoute);
+// USER ROUTES
+app.use("/user", updateUserProfileRoute);
+app.use("/user", getUserProfileRoute);
+// PARTNER ROUTES
+app.get("/bakeries", bakeries);
+app.get("/bakery/:id/products", getProducts);
 
 // Your existing route
 app.post(
@@ -122,6 +105,22 @@ app.post(
     }
   }
 );
+
+/** get user */
+app.get("/bakeries", async (req, res) => {
+  try {
+    const bakeries = await prisma.bakery.findMany({
+      include: {
+        products: true,
+      },
+    });
+
+    res.status(200).json({ bakeries });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+/** get user */
 
 app.get("/users", async (req, res) => {
   try {
