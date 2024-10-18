@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { UnpricedCard } from "../components/cards/UnpricedCard";
 import { BakeryLogo } from "../components/commons/BakeryLogo";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
-import { Navigation } from "../components/commons/Navigation";
 import { useEffect } from "react";
+import { BakeryCard } from "../components/cards/BakeryCard";
+import { Navbar } from "../components/commons/Navbar";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <Navigation />
+      <Navbar />
       <div className="min-h-screen bg-[#f3f3f3] text-black dark:bg-gray-900 dark:text-white">
         <div
           id="top"
@@ -63,25 +63,25 @@ export default function LandingPage() {
             <div id="near mb-10">
               <p className="text-3xl mb-3">Bakeries near you</p>
               <div id="container" className="flex gap-4 mb-10">
-                <UnpricedCard
+                <BakeryCard
                   bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
-                <UnpricedCard
+                <BakeryCard
                   bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
-                <UnpricedCard
+                <BakeryCard
                   bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"
                   distance="1.1 km"
                 />
-                <UnpricedCard
+                <BakeryCard
                   bakeryId={0.1}
                   productPict="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
                   bakeryName="Mako Bakery"

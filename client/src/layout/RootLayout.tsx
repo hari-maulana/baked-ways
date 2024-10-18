@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { Navigation } from "../components/commons/Navigation";
+import { Navbar } from "../components/commons/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { useEffect } from "react";
@@ -55,7 +55,7 @@ const RootLayout = () => {
 
   return (
     <>
-      <Navigation />
+      <Navbar />
       <div className="flex flex-col items-center">
         <Outlet />
       </div>

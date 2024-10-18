@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/authentication/authSlice";
 import { RootState } from "../../store";
 
-export const Navigation: React.FC = () => {
+export const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
