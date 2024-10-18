@@ -8,7 +8,7 @@ const MenuPage = () => {
   /** fetch data */
   const fetchProducts = async () => {
     const response = await axios.get(
-      `http://localhost:3003/bakery/${id}/products`
+      `${import.meta.env.VITE_API_URL}/bakery/${id}/products`
     );
     return response.data;
   };

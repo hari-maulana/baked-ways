@@ -12,7 +12,7 @@ export const LoginPage = () => {
 
   const userLogin = async (userData: { email: string; password: string }) => {
     const response = await axios.post(
-      "http://localhost:3003/auth/login",
+      `${import.meta.env.VITE_API_URL}/auth/login`,
       userData
     );
 

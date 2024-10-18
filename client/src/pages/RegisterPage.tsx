@@ -27,7 +27,7 @@ export const RegisterPage = () => {
     phone: string;
   }) => {
     const response = await axios.post(
-      "http://localhost:3003/auth/register",
+      `${import.meta.env.VITE_API_URL}/auth/register`,
       userData
     );
     return response.data;

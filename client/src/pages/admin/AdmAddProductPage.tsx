@@ -32,7 +32,7 @@ export const AdmAddProductPage = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3003/admin/bakery/product/${adminId}`,
+        `${import.meta.env.VITE_API_URL}/admin/bakery/product/${adminId}`,
         formData,
         {
           headers: {

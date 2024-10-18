@@ -23,7 +23,7 @@ const RootLayout = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3003/user/${userId}`,
+          `${import.meta.env.VITE_API_URL}/user/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
