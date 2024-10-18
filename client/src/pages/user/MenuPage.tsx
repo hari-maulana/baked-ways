@@ -1,10 +1,14 @@
 import axios from "axios";
 import { ProductCard } from "../../components/cards/ProductCard";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const MenuPage = () => {
   const { id } = useParams<{ id: string | undefined }>();
+  const userProfile = useSelector((state: RootState) => state.userProfile);
   /** fetch data */
   const fetchProducts = async () => {
     const response = await axios.get(
@@ -17,6 +21,32 @@ const MenuPage = () => {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
+  /** fetch data */
+
+  const addProductToCart = async (userCartData: {
+    productId: number;
+    userId: number;
+  }) => {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/cart`,
+      userCartData
+    );
+    console.log(response.data);
+    return response.data;
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: addProductToCart,
+  });
+
+  const orderButton = (productId: number, userId: number) => {
+    mutate({
+      productId,
+      userId,
+    });
+    toast.success("Product added to cart");
+  };
+
   return (
     <>
       <div className="bg-[#f3f3f3] h-[max-content] flex items-center justify-center mt-10">
@@ -31,9 +61,9 @@ const MenuPage = () => {
                 <ProductCard
                   key={index}
                   productPict={product?.image}
-                  productName={product?.name}
+                  productName={`${product?.name} (${product?.id})`}
                   price={product?.price}
-                  orderButton={() => {}}
+                  orderButton={() => orderButton(product?.id, userProfile?.id)}
                 />
               ))
             ) : (
