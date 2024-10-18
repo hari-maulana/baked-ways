@@ -50,7 +50,6 @@ export const AdmAddProductPage = () => {
       setLoading(false);
     }
   };
-  const notify = () => toast.success("This is a simple toast notification!");
 
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">

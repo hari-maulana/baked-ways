@@ -13,7 +13,7 @@ const MenuPage = () => {
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data /*isLoading, error*/ } = useQuery({
     queryKey: ["products"],
     queryFn: fetchProducts,
   });

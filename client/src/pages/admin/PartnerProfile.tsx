@@ -1,5 +1,4 @@
 import { AdmEditPartnerProfile } from "../../components/admin/AdmEditPartnerProfile";
-import EditProfileModal from "../../components/profilePage/EditProfileModal";
 
 export const PartnerProfile = () => {
   return (
