@@ -62,12 +62,18 @@ export const Navbar: React.FC = () => {
         {/* right nav */}
         <div className="flex items-center justify-center h-[100%] gap-2">
           {isLogin ? (
-            <>
-              <a href="/cart" className=" text-white hover:text-gray-600">
+            <div className="relative flex flex-row items-center justify-center gap-4">
+              <a
+                href="/cart"
+                className="text-white hover:text-gray-600 relative"
+              >
+                <p className="absolute -top-2 -right-2 font-bold text-black bg-white rounded-full px-2 text-xs z-10">
+                  12
+                </p>
                 <Icon icon="solar:cart-3-linear" className="w-8 h-8" />
               </a>
-              <Dropdown handleLogout={handleLogout} porfilePict={profilePict} />
-            </>
+              <Dropdown handleLogout={handleLogout} profilePict={profilePict} />
+            </div>
           ) : (
             <>
               <button

@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 interface DropdownProps {
   handleLogout: () => void;
-  porfilePict?: string;
+  profilePict?: string;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
   handleLogout,
-  porfilePict,
+  profilePict,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -20,8 +20,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <img
           className="w-10 h-10 rounded-full cursor-pointer hover:opacity-80"
           src={
-            porfilePict
-              ? porfilePict
+            profilePict
+              ? profilePict
               : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           }
           alt="Rounded avatar"
