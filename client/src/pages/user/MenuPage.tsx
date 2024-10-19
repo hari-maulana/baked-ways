@@ -9,6 +9,7 @@ import { RootState } from "../../store";
 const MenuPage = () => {
   const { id } = useParams<{ id: string | undefined }>();
   const userProfile = useSelector((state: RootState) => state.userProfile);
+
   /** fetch data */
   const fetchProducts = async () => {
     const response = await axios.get(
@@ -23,6 +24,7 @@ const MenuPage = () => {
   });
   /** fetch data */
 
+  /** add product to cart */
   const addProductToCart = async (userCartData: {
     productId: number;
     userId: number;
@@ -38,6 +40,7 @@ const MenuPage = () => {
   const { mutate } = useMutation({
     mutationFn: addProductToCart,
   });
+  /** add product to cart */
 
   const orderButton = (productId: number, userId: number) => {
     mutate({
