@@ -41,9 +41,7 @@ export const LocationMap: React.FC = () => {
 
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyCEmwBKcJT8G46hTjvL9_9jsvykPSzjprM"
-      /*{process.env.REACT_APP_GOOGLE_MAPS_API_KEY!}*/
-
+      googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
       libraries={libraries}
     >
       <GoogleMap
