@@ -16,8 +16,8 @@ const mapContainerStyle = {
 };
 
 const center = {
-  lat: -3.745, // Initial map center latitude
-  lng: -38.523, // Initial map center longitude
+  lat: -6.3013588, // Initial map center latitude
+  lng: 106.7351569, // Initial map center longitude
 };
 
 export const LocationMap: React.FC = () => {
