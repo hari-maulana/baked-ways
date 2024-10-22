@@ -29,6 +29,10 @@ export const ProfilePage = () => {
     queryClient.invalidateQueries({ queryKey: ["orders"] });
   }, [data]);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
       {/* container kiri*/}
@@ -37,7 +41,7 @@ export const ProfilePage = () => {
         <div className="flex flex-row">
           {/* gambar profile */}
           <img
-            className="w-36 h-48 object-contain mr-5 mb-5 rounded bg-slate-200"
+            className="w-36 h-48 object-cover mr-5 mb-5 rounded bg-slate-200"
             src={
               userProfile
                 ? userProfile.profile.profilePict
@@ -58,6 +62,10 @@ export const ProfilePage = () => {
             <div>
               <p className="font-bold">Phone</p>
               <p>{userProfile?.phone}</p>
+            </div>
+            <div>
+              <p className="font-bold">Address</p>
+              <p>{userProfile?.profile?.address}</p>
             </div>
           </div>
         </div>
