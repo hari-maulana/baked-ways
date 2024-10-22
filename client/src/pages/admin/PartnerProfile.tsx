@@ -1,64 +1,112 @@
-import { AdmEditPartnerProfile } from "../../components/admin/AdmEditPartnerProfile";
+import { useSelector } from "react-redux";
+import EditProfileModal from "../../components/profile/EditProfileModal";
+import { RootState } from "../../store";
+import { TransactionList } from "../../components/transaction/TransactionList";
+import axios from "axios";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 export const PartnerProfile = () => {
+  const queryClient = useQueryClient();
+  const userProfile = useSelector((state: RootState) => state.userProfile);
+  /** fetch order data */
+  const fetchOrders = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/admin/orders/${userProfile.bakery.id}`
+    );
+    return response.data;
+  };
+
+  const { data, isLoading /*, error*/ } = useQuery({
+    queryKey: ["orders"],
+    queryFn: fetchOrders,
+  });
+  /** fetch order data */
+  console.log(userProfile.profile.profilePict);
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    queryClient.invalidateQueries({ queryKey: ["orders"] });
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
       {/* container kiri*/}
       <div>
-        <p className="text-2xl font-bold mb-6">Profile Partner</p>
-        <div className="flex flex-row">
+        <p className="text-2xl font-bold mb-6">Partner Profile</p>
+        <div className="flex flex-row bg-white p-4 rounded-xl ">
           {/* gambar profile */}
           <img
-            className="w-36 h-48 object-cover mr-5 mb-5 rounded"
-            src="https://assets.makobakery.com/cdn/web/product/1669019447_rendang-floss.JPG"
+            className=" w-48 h-60 object-cover mr-5 mb-5 rounded bg-slate-200"
+            src={
+              userProfile
+                ? userProfile.profile.profilePict
+                : "https://via.placeholder.com/150"
+            }
             alt=""
           />
           {/* keterangan profile */}
-          <div className="flex flex-col justify-between h-48">
+          <div className="flex flex-col justify-between h-60">
             <div>
-              <p className="font-bold">Partner Name</p>
-              <p>Mako Bakery</p>
+              <p className="font-bold">Name</p>
+              <p>{userProfile?.fullName}</p>
             </div>
             <div>
               <p className="font-bold">Email</p>
-              <p>makosupport@mako.com</p>
+              <p>{userProfile?.email}</p>
             </div>
             <div>
               <p className="font-bold">Phone</p>
-              <p>0987654321</p>
+              <p>{userProfile?.phone}</p>
+            </div>
+            <div>
+              <p className="font-bold">Address</p>
+              <p>{userProfile?.profile?.address}</p>
             </div>
           </div>
         </div>
-        <AdmEditPartnerProfile />
 
-        {/* <button ">
-          Edit Profile
-        </button> */}
+        <div className="mt-10">
+          <EditProfileModal userId={userProfile.id} />
+        </div>
       </div>
 
       {/* container kanan */}
       <div>
-        <p className="text-2xl font-bold mb-6">Order History</p>
-        {/* hitory list */}
-
+        {/* Ongoing Orders */}
+        <p className="text-2xl font-bold mb-6">Ongoing Order</p>
         <ul>
-          <li className="flex flex-row justify-between border-b-2 border-gray-500 py-2 gap-24">
-            {/* keterangan */}
-            <div>
-              <p className="font-bold">Jane Dewe</p>
-              <small>Monday, August 11, 2022</small>
-              <p className="font-bold">Total: Rp. 500.000</p>
-            </div>
-            {/* status dan logo */}
-            <div className="flex flex-col items-center justify-between">
-              <img
-                className="w-25 h-10 object-contain rounded"
-                src="https://res.cloudinary.com/circlehmhm/image/upload/v1729191371/Bread_House_Bakery_Logo_1600_x_300_px_1600_x_200_px_1600_x_240_px_2_hyps46.svg"
-                alt=""
+          {data
+            ?.filter((order: any) => order.status !== "COMPLETED")
+            .map((order: any) => (
+              <TransactionList
+                key={order.id}
+                bakeryName={order.user?.fullName}
+                date={order.createdAt}
+                total={order.totalPrice}
+                status={order.status}
               />
-              <p className="text-green-500 font-bold">Delivered</p>
-            </div>
-          </li>
+            ))}
+        </ul>
+
+        {/* Completed Orders */}
+        <p className="text-2xl font-bold mb-6 mt-10">Order History</p>
+        <ul>
+          {data
+            ?.filter((order: any) => order.status === "COMPLETED")
+            .map((order: any) => (
+              <TransactionList
+                key={order.id}
+                bakeryName={order.user?.fullName}
+                date={order.createdAt}
+                total={order.totalPrice}
+                status={order.status}
+              />
+            ))}
         </ul>
       </div>
     </div>

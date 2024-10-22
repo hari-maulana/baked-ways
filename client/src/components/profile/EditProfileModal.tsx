@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 interface ProfileFormData {
   fullName: string;
@@ -16,7 +15,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
     reset,
   } = useForm<ProfileFormData>();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,10 +70,8 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    reset(); // Reset the form when the modal is toggled
+    reset();
   };
-
-  console.log("Current User ID:", userId); // debug
 
   return (
     <>
@@ -114,19 +111,6 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
                   placeholder="Enter name"
                 />
               </div>
-              {/* <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Profile Picture
-                </label>
-                <input
-                  type="text"
-                  {...register("fullName", {
-                    required: "Full Name is required",
-                  })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-                  placeholder="Enter name"
-                />
-              </div> */}
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700">
                   Email
@@ -190,118 +174,8 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
           </div>
         </div>
       )}
-      {/* {isModalOpen && (
-        <div>
-          <div>
-            <div>
-              <h2>Edit Profile</h2>
-              <button onClick={toggleModal}>Close</button>
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  {...register("fullName", {
-                    required: "Full Name is required",
-                  })}
-                />
-                {errors.fullName && <p>{errors.fullName.message}</p>}
-              </div>
-
-              <div>
-                <label>Email</label>
-                <input
-                  type="email"
-                  {...register("email", { required: "Email is required" })}
-                />
-                {errors.email && <p>{errors.email.message}</p>}
-              </div>
-
-              <div>
-                <label>Phone</label>
-                <input
-                  type="tel"
-                  {...register("phone", {
-                    required: "Phone number is required",
-                  })}
-                />
-                {errors.phone && <p>{errors.phone.message}</p>}
-              </div>
-
-              <div>
-                <label>Location</label>
-                <input
-                  type="text"
-                  {...register("location", {
-                    required: "Location is required",
-                  })}
-                />
-                {errors.location && <p>{errors.location.message}</p>}
-              </div>
-
-              <div>
-                <label>Profile Image</label>
-                <input type="file" {...register("image")} accept="image/*" />
-              </div>
-
-              <button type="submit">Save Changes</button>
-            </form>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };
 
 export default EditProfileModal;
-
-// import { useState } from "react";
-
-// const EditProfileModal = () => {
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [formData, setFormData] = useState({
-//     fullName: "",
-//     profilePict: "",
-//     email: "",
-//     phone: "",
-//     location: "",
-//   });
-
-//   const toggleModal = () => {
-//     setIsModalOpen(!isModalOpen);
-//   };
-
-//   const handleChange = (e: any) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = (e: any) => {
-//     e.preventDefault();
-//     // Handle form submission (e.g., send to an API)
-//     console.log("Form data submitted:", formData);
-//     toggleModal(); // Close modal after saving
-//   };
-
-//   return (
-//     <>
-//       {/* Button to open modal */}
-//       <button
-//         className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
-//         onClick={toggleModal}
-//       >
-//         Edit
-//       </button>
-
-//       {/* Modal */}
-
-//     </>
-//   );
-// };
-
-// export default EditProfileModal;
