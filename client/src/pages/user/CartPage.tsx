@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductListCart } from "../../components/cartPage/ProductListCart";
+import { ProductListCart } from "../../components/cart/ProductListCart";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { useQuery } from "@tanstack/react-query";

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import EditProfileModal from "../../components/profilePage/EditProfileModal";
+import EditProfileModal from "../../components/profile/EditProfileModal";
 import { RootState } from "../../store";
 import { TransactionList } from "../../components/transaction/TransactionList";
 import axios from "axios";

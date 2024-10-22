@@ -7,6 +7,7 @@ interface ProfileFormData {
   email: string;
   phone: string;
   location: string;
+  image: FileList; // For image upload
 }
 
 const EditProfileModal = ({ userId }: { userId: number }) => {
@@ -21,15 +22,26 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
 
   const updateProfile = async (data: ProfileFormData) => {
     try {
+      const formData = new FormData();
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("location", data.location);
+
+      if (data.image && data.image[0]) {
+        formData.append("image", data.image[0]);
+      }
+
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/user/${userId}`,
-        data,
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
+
       console.log("Profile update response:", response.data);
       return response.data;
     } catch (error) {
@@ -57,7 +69,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
     reset(); // Reset the form when the modal is toggled
   };
 
-  console.log("Current User ID:", userId); //debug
+  console.log("Current User ID:", userId); // debug
 
   return (
     <>
@@ -114,6 +126,11 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
                   })}
                 />
                 {errors.location && <p>{errors.location.message}</p>}
+              </div>
+
+              <div>
+                <label>Profile Image</label>
+                <input type="file" {...register("image")} accept="image/*" />
               </div>
 
               <button type="submit">Save Changes</button>
