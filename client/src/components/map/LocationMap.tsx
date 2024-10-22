@@ -20,11 +20,19 @@ const center = {
   lng: 106.7351569, // Initial map center longitude
 };
 
-export const LocationMap: React.FC = () => {
-  const [selected, setSelected] = useState<{ lat: number; lng: number } | null>(
-    null
-  );
-  const [address, setAddress] = useState<string>("");
+interface LocationMapProps {
+  address: string;
+  setAddress: (address: string) => void;
+  selected: { lat: number; lng: number } | null;
+  setSelected: (location: { lat: number; lng: number } | null) => void;
+}
+
+export const LocationMap: React.FC<LocationMapProps> = ({
+  setAddress,
+  selected,
+  setSelected,
+  address,
+}) => {
   const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
 
   // Function to handle when a place is selected from autocomplete

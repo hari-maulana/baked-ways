@@ -3,9 +3,11 @@ import EditProfileModal from "../../components/profilePage/EditProfileModal";
 import { RootState } from "../../store";
 import { TransactionList } from "../../components/transaction/TransactionList";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 export const ProfilePage = () => {
+  const queryClient = useQueryClient();
   const userProfile = useSelector((state: RootState) => state.userProfile);
   /** fetch order data */
   const fetchOrders = async () => {
@@ -21,6 +23,12 @@ export const ProfilePage = () => {
   });
   /** fetch order data */
   console.log(userProfile.profile.profilePict);
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    queryClient.invalidateQueries({ queryKey: ["orders"] });
+  }, [data]);
+
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
       {/* container kiri*/}
@@ -53,7 +61,7 @@ export const ProfilePage = () => {
             </div>
           </div>
         </div>
-        <EditProfileModal />
+        <EditProfileModal userId={userProfile.id} />
 
         {/* <button ">
           Edit Profile
@@ -61,17 +69,20 @@ export const ProfilePage = () => {
       </div>
 
       {/* container kanan */}
-
-      {data?.map((order: any) => (
-        <TransactionList
-          key={order.id}
-          transactionName="Ongoing Transaction"
-          bakeryName={order.bakery.name}
-          date={order.createdAt}
-          total={order.totalPrice}
-          status={order.status}
-        />
-      ))}
+      <div>
+        <p className="text-2xl font-bold mb-6">Ongoing Transaction</p>
+        <ul>
+          {data?.map((order: any) => (
+            <TransactionList
+              key={order.id}
+              bakeryName={order.bakery.name}
+              date={order.createdAt}
+              total={order.totalPrice}
+              status={order.status}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

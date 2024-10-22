@@ -3,11 +3,9 @@ interface TransactionListProps {
   date: string;
   total: number;
   status: string;
-  transactionName: string;
 }
 
 export const TransactionList: React.FC<TransactionListProps> = ({
-  transactionName,
   bakeryName,
   date,
   total,
@@ -15,7 +13,6 @@ export const TransactionList: React.FC<TransactionListProps> = ({
 }) => {
   return (
     <div>
-      <p className="text-2xl font-bold mb-6">{transactionName}</p>
       {/* hitory list */}
 
       <ul>

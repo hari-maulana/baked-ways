@@ -24,7 +24,7 @@ export const AdmAddProductPage = () => {
 
   const onSubmit = async (data: ProductFormData) => {
     const formData = new FormData();
-    formData.append("image", data.image[0]); // Append the first file
+    formData.append("image", data.image[0]);
     formData.append("name", data.name);
     formData.append("price", data.price);
     formData.append("description", data.description);

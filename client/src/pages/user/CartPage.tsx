@@ -5,9 +5,16 @@ import { RootState } from "../../store";
 import { useQuery } from "@tanstack/react-query";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { LocationMap } from "../../components/map/LocationMap";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const CartPage = () => {
   const userProfile = useSelector((state: RootState) => state.userProfile);
+  const [selected, setSelected] = useState<{ lat: number; lng: number } | null>(
+    null
+  );
+  const [address, setAddress] = useState<string>("");
+
   /** fetch cart data */
   const fetchCart = async () => {
     const response = await axios.get(
@@ -22,13 +29,41 @@ export const CartPage = () => {
   });
   /** fetch cart data */
 
-  console.log(data?.products.length);
-  // const test = data?.products[0].product;
+  /** post order */
+  const placeOrder = async () => {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/order`, {
+      userId: userProfile.id,
+      bakeryId: data?.bakeryId,
+      address: address,
+      location: selected,
+    });
+    return response.data;
+  };
+  /** post order */
+
+  const handlePlaceOrder = async () => {
+    const response = await placeOrder();
+    if (response) {
+      toast.success("Order placed successfully");
+      console.log(response);
+    } else {
+      toast.error("Failed to place order");
+    }
+  };
+
   if (isLoading) {
     return <>Loading...</>;
   }
   if (!data) {
-    return <>No cart data</>;
+    return (
+      <div className="container h-full flex sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 items-center justify-center">
+        <Icon icon="solar:cart-3-linear" className="w-40 h-40 text-[#e0595f]" />
+        <div className="text-3xl ">
+          <p>Your cart is empty...</p>
+          <p>Please add some of our partner products to your cart :)</p>
+        </div>
+      </div>
+    );
   }
   if (data?.products.length === 0) {
     return (
@@ -47,30 +82,12 @@ export const CartPage = () => {
       <div className="flex-col items-center justify-center w-full">
         <h1 className="text-3xl font-bold">Mako Bakery</h1>
         {/* location input */}
-        <LocationMap />
-
-        {/* <div className="mt-10">
-          <div>
-            <label
-              htmlFor="location-input"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Delivery location
-            </label>
-            <div className="flex">
-              <input
-                type="text"
-                id="location-input"
-                className="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <button className="bg-gray-800 inline-flex items-center justify-center px-4 py-2 hover:bg-gray-900 rounded-lg w-auto ms-10">
-                <p className="text-white text-sm font-bold whitespace-nowrap">
-                  Select on Map
-                </p>
-              </button>
-            </div>
-          </div>
-        </div> */}
+        <LocationMap
+          selected={selected}
+          setSelected={setSelected}
+          address={address}
+          setAddress={setAddress}
+        />
 
         {/*iitem list */}
         <div className="mt-10 flex">
@@ -137,7 +154,10 @@ export const CartPage = () => {
         </div>
 
         <div className="flex justify-end items-center w-full mt-10">
-          <button className="bg-gray-800 px-10 py-2 hover:bg-gray-900 rounded-lg">
+          <button
+            className="bg-gray-800 px-10 py-2 hover:bg-gray-900 rounded-lg"
+            onClick={handlePlaceOrder}
+          >
             <p className="text-white text-sm font-bold">Order</p>
           </button>
         </div>
@@ -145,61 +165,3 @@ export const CartPage = () => {
     </div>
   );
 };
-
-// import { useState } from "react";
-// import { ProductListCart } from "../../components/cartPage/ProductListCart";
-
-// type CartItem = {
-//   id: number;
-//   name: string;
-//   price: number;
-//   quantity: number;
-// };
-
-// const initialCart: CartItem[] = [
-//   { id: 1, name: "Item 1", price: 10, quantity: 1 },
-//   { id: 2, name: "Item 2", price: 20, quantity: 2 },
-// ];
-
-// export const CartPage = () => {
-//   const [cart, setCart] = useState<CartItem[]>(initialCart);
-
-//   // Handle increment
-//   const incrementQuantity = (id: number) => {
-//     setCart((prevCart) =>
-//       prevCart.map((item) =>
-//         item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-//       )
-//     );
-//   };
-
-//   // Handle decrement
-//   const decrementQuantity = (id: number) => {
-//     setCart((prevCart) =>
-//       prevCart.map((item) =>
-//         item.id === id && item.quantity > 1
-//           ? { ...item, quantity: item.quantity - 1 }
-//           : item
-//       )
-//     );
-//   };
-
-//   // Calculate total
-//   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-//   return (
-//     <div>
-//       <h1>Cart</h1>
-//       <ul>
-//         {cart.map((item) => (
-//           <li key={item.id}>
-//             {item.name} - ${item.price} x {item.quantity}
-//             <button onClick={() => decrementQuantity(item.id)}>-</button>
-//             <button onClick={() => incrementQuantity(item.id)}>+</button>
-//           </li>
-//         ))}
-//       </ul>
-//       <h2>Total: ${total}</h2>
-//     </div>
-//   );
-// };
