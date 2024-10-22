@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface ProfileFormData {
   fullName: string;
@@ -11,6 +12,7 @@ interface ProfileFormData {
 }
 
 const EditProfileModal = ({ userId }: { userId: number }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -21,6 +23,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
   const [mutatedData, setMutatedData] = useState<ProfileFormData | null>(null);
 
   const updateProfile = async (data: ProfileFormData) => {
+    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("fullName", data.fullName);
@@ -42,6 +45,10 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
         }
       );
 
+      setIsLoading(false);
+
+      window.location.reload();
+
       console.log("Profile update response:", response.data);
       return response.data;
     } catch (error) {
@@ -57,8 +64,6 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
       toggleModal();
 
       console.log("Updated profile data:", updatedData);
-
-      window.location.reload();
     } catch (error) {
       console.error("Error while saving profile", error);
     }
@@ -74,10 +79,118 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
   return (
     <>
       {/* Button to open modal */}
-      <button onClick={toggleModal}>Edit</button>
+      <button
+        className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
+        onClick={toggleModal}
+      >
+        Edit
+      </button>
 
       {/* Modal */}
       {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center">
+              <h2 className="text-xl font-semibold">Edit Profile</h2>
+              <button
+                className="text-gray-500 hover:text-gray-700"
+                onClick={toggleModal}
+              >
+                &times;
+              </button>
+            </div>
+
+            <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  {...register("fullName", {
+                    required: "Full Name is required",
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  placeholder="Enter name"
+                />
+              </div>
+              {/* <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Profile Picture
+                </label>
+                <input
+                  type="text"
+                  {...register("fullName", {
+                    required: "Full Name is required",
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  placeholder="Enter name"
+                />
+              </div> */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  {...register("email", { required: "Email is required" })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  {...register("phone", {
+                    required: "Phone number is required",
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  placeholder="Enter phone"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Location
+                </label>
+                <input
+                  type="text"
+                  {...register("location", {
+                    required: "Location is required",
+                  })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
+                  placeholder="Enter location"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Profile Image
+                </label>
+                <input type="file" {...register("image")} accept="image/*" />
+              </div>
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={toggleModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
+                >
+                  {isLoading ? "Saving..." : "Save"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* {isModalOpen && (
         <div>
           <div>
             <div>
@@ -137,7 +250,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
             </form>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
@@ -186,104 +299,7 @@ export default EditProfileModal;
 //       </button>
 
 //       {/* Modal */}
-//       {isModalOpen && (
-//         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-//           <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-//             <div className="flex justify-between items-center">
-//               <h2 className="text-xl font-semibold">Edit Profile</h2>
-//               <button
-//                 className="text-gray-500 hover:text-gray-700"
-//                 onClick={toggleModal}
-//               >
-//                 &times;
-//               </button>
-//             </div>
 
-//             <form className="mt-4" onSubmit={handleSubmit}>
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-700">
-//                   Full Name
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="name"
-//                   value={formData.fullName}
-//                   onChange={handleChange}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-//                   placeholder="Enter name"
-//                 />
-//               </div>
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-700">
-//                   Profile Picture
-//                 </label>
-//                 <input
-//                   type="file"
-//                   name="profilePict"
-//                   value={formData.profilePict}
-//                   onChange={handleChange}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-//                   placeholder="Enter name"
-//                 />
-//               </div>
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-700">
-//                   Email
-//                 </label>
-//                 <input
-//                   type="email"
-//                   name="email"
-//                   value={formData.email}
-//                   onChange={handleChange}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-//                   placeholder="Enter email"
-//                 />
-//               </div>
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-700">
-//                   Phone
-//                 </label>
-//                 <input
-//                   type="tel"
-//                   name="phone"
-//                   value={formData.phone}
-//                   onChange={handleChange}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-//                   placeholder="Enter phone"
-//                 />
-//               </div>
-//               <div className="mb-4">
-//                 <label className="block text-sm font-medium text-gray-700">
-//                   Location
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="location"
-//                   value={formData.location}
-//                   onChange={handleChange}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-500"
-//                   placeholder="Enter location"
-//                 />
-//               </div>
-//               <div className="flex justify-end space-x-2">
-//                 <button
-//                   type="button"
-//                   className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-//                   onClick={toggleModal}
-//                 >
-//                   Cancel
-//                 </button>
-//                 <button
-//                   type="submit"
-//                   className="p-2 w-36 bg-gray-700 text-white text-md rounded cursor-pointer hover:bg-gray-900"
-//                 >
-//                   Save Changes
-//                 </button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       )}
 //     </>
 //   );
 // };
