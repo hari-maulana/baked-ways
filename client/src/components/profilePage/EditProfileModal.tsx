@@ -35,7 +35,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
       }
 
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/user/${userId}`,
+        `${import.meta.env.VITE_API_URL}/user/profile/${userId}`,
         formData,
         {
           headers: {
@@ -62,7 +62,7 @@ const EditProfileModal = ({ userId }: { userId: number }) => {
       setMutatedData(updatedData);
       toggleModal();
 
-      console.log("Updated profile data:", updatedData);
+      console.log(mutatedData);
     } catch (error) {
       console.error("Error while saving profile", error);
     }
