@@ -16,7 +16,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({
       {/* hitory list */}
 
       <ul>
-        <li className="flex flex-row justify-between border-b-2 border-gray-500 py-2 gap-24">
+        <li className="flex flex-row justify-between border-b-2 border-gray-500 py-2 gap-24 bg-white p-4 rounded-xl mb-2">
           {/* keterangan */}
           <div>
             <p className="font-bold">{bakeryName}</p>
@@ -38,7 +38,11 @@ export const TransactionList: React.FC<TransactionListProps> = ({
               src="https://res.cloudinary.com/circlehmhm/image/upload/v1729191371/Bread_House_Bakery_Logo_1600_x_300_px_1600_x_200_px_1600_x_240_px_2_hyps46.svg"
               alt="logo"
             />
-            <p className="text-green-500 font-bold">{status}</p>
+            {status !== "COMPLETED" ? (
+              <p className="text-orange-500 font-bold">{status}</p>
+            ) : (
+              <p className="text-green-500 font-bold">{status}</p>
+            )}
           </div>
         </li>
       </ul>

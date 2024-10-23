@@ -23,7 +23,7 @@ export const AdminLayout = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/user/${userId}`,
+          `${import.meta.env.VITE_API_URL}/user/profile/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

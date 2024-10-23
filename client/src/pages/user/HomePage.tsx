@@ -7,7 +7,7 @@ export default function HomePage() {
   /** fetch data */
   const fetchBakeries = async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/bakeries`
+      `${import.meta.env.VITE_API_URL}/partner/bakeries`
     );
     return response.data;
   };
@@ -70,7 +70,7 @@ export default function HomePage() {
                 <BakeryCard
                   key={index}
                   bakeryId={bakery?.id}
-                  productPict={bakery?.image}
+                  productPict={bakery?.admin?.profile?.profilePict}
                   bakeryName={bakery?.name}
                   distance="1.1 km"
                 />

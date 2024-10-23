@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import EditProfileModal from "../../components/profile/EditProfileModal";
+import EditProfileModal from "../../components/profilePage/EditProfileModal";
 import { RootState } from "../../store";
 import { TransactionList } from "../../components/transaction/TransactionList";
 import axios from "axios";
@@ -38,10 +38,10 @@ export const ProfilePage = () => {
       {/* container kiri*/}
       <div>
         <p className="text-2xl font-bold mb-6">My Profile</p>
-        <div className="flex flex-row">
+        <div className="flex flex-row bg-white p-4 rounded-xl ">
           {/* gambar profile */}
           <img
-            className="w-36 h-48 object-cover mr-5 mb-5 rounded bg-slate-200"
+            className=" w-48 h-60 object-cover mr-5 mb-5 rounded bg-slate-200"
             src={
               userProfile
                 ? userProfile.profile.profilePict
@@ -50,7 +50,7 @@ export const ProfilePage = () => {
             alt=""
           />
           {/* keterangan profile */}
-          <div className="flex flex-col justify-between h-48">
+          <div className="flex flex-col justify-between h-60">
             <div>
               <p className="font-bold">Name</p>
               <p>{userProfile?.fullName}</p>
@@ -69,26 +69,44 @@ export const ProfilePage = () => {
             </div>
           </div>
         </div>
-        <EditProfileModal userId={userProfile.id} />
 
-        {/* <button ">
-          Edit Profile
-        </button> */}
+        <div className="mt-10">
+          <EditProfileModal userId={userProfile.id} />
+        </div>
       </div>
 
       {/* container kanan */}
       <div>
-        <p className="text-2xl font-bold mb-6">Ongoing Transaction</p>
+        {/* Ongoing Orders */}
+        <p className="text-2xl font-bold mb-6">Ongoing Order</p>
         <ul>
-          {data?.map((order: any) => (
-            <TransactionList
-              key={order.id}
-              bakeryName={order.bakery.name}
-              date={order.createdAt}
-              total={order.totalPrice}
-              status={order.status}
-            />
-          ))}
+          {data
+            ?.filter((order: any) => order.status !== "COMPLETED")
+            .map((order: any) => (
+              <TransactionList
+                key={order.id}
+                bakeryName={order.bakery.name}
+                date={order.createdAt}
+                total={order.totalPrice}
+                status={order.status}
+              />
+            ))}
+        </ul>
+
+        {/* Completed Orders */}
+        <p className="text-2xl font-bold mb-6 mt-10">Order History</p>
+        <ul>
+          {data
+            ?.filter((order: any) => order.status === "COMPLETED")
+            .map((order: any) => (
+              <TransactionList
+                key={order.id}
+                bakeryName={order.bakery.name}
+                date={order.createdAt}
+                total={order.totalPrice}
+                status={order.status}
+              />
+            ))}
         </ul>
       </div>
     </div>

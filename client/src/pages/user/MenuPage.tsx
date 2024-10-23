@@ -13,7 +13,7 @@ const MenuPage = () => {
   /** fetch data */
   const fetchProducts = async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_API_URL}/bakery/${id}/products`
+      `${import.meta.env.VITE_API_URL}/partner/bakery/${id}/products`
     );
     return response.data;
   };

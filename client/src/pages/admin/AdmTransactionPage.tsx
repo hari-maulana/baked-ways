@@ -6,6 +6,11 @@
 //   );
 // };
 
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 // import React from 'react';
 
 export const AdmTransactionPage = () => {
@@ -32,6 +37,21 @@ export const AdmTransactionPage = () => {
       status: "Delivered",
     },
   ];
+  const userProfile = useSelector((state: RootState) => state.userProfile);
+  console.log(userProfile.bakery.id);
+
+  /** fetch order data  */
+  const fetchOrders = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/orders/${userProfile.bakery.id}`
+    );
+    return response.data;
+  };
+  const { data } = useQuery({
+    queryKey: ["orders"],
+    queryFn: fetchOrders,
+  });
+  console.log(data);
 
   return (
     <div className="container sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl my-16 flex flex-row justify-between">
